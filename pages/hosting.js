@@ -40,7 +40,7 @@ const SignupHost = ({signup, setSignup}) => {
               </div>
             </div>
             <div className="form-group-triple">
-              <label htmlFor="Password">Pasword</label>
+              <label htmlFor="Password">Password</label>
               <div className="form-group-triple-input">
                 <textarea id="password" rows="2" name="password" placeholder="(Password)" value={signup.password} onChange={(e) => (setSignup('password', e.target.value), setError(''))}  onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = '(Password)'} required></textarea>
               </div>

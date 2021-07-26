@@ -8,7 +8,7 @@
     text-decoration: none;
 
     @media only screen and (max-width: $large) {
-      // display: none;
+      position: absolute;
     }
   }
 

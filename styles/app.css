@@ -122,6 +122,9 @@ body {
   color: white;
   transition: all 0.5s ease-in-out;
   height: 6rem; }
+  @media only screen and (max-width: 992px) {
+    .nav {
+      padding: 2rem 1rem; } }
   .nav-sticky {
     position: fixed;
     top: 0;
@@ -130,11 +133,17 @@ body {
     background-image: linear-gradient(90deg, #ef1d4b, #ef1d4b); }
   .nav-logo {
     font-size: 3.2rem; }
+    @media only screen and (max-width: 992px) {
+      .nav-logo {
+        font-size: 2.8rem; } }
   .nav-menu {
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 1.6rem; }
+    @media only screen and (max-width: 992px) {
+      .nav-menu {
+        font-size: 1.4rem; } }
     .nav-menu-item {
       padding: 1rem 1rem;
       border-radius: 1.2rem;
@@ -157,6 +166,9 @@ body {
         border-top-left-radius: 2.5rem;
         border-bottom-left-radius: 2.5rem;
         margin-left: 2rem; }
+        @media only screen and (max-width: 992px) {
+          .nav-menu-dropdown-label {
+            margin-left: 0.5rem; } }
         .nav-menu-dropdown-label:hover {
           cursor: pointer; }
         .nav-menu-dropdown-label-icon {
@@ -245,6 +257,9 @@ body {
   font-size: 3.2rem;
   color: white;
   text-decoration: none; }
+  @media only screen and (max-width: 992px) {
+    .signupHost-logo {
+      position: absolute; } }
 
 .signupHost-container {
   display: grid;
