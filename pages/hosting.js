@@ -1,18 +1,30 @@
 import { useState, useEffect } from 'react'
 import {connect} from 'react-redux'
+import {API} from '../config'
+import axios from 'axios'
 
 const SignupHost = ({signup, setSignup}) => {
 
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     signup.password !== signup.confirm_password ? setError(`passwords don't match`) : setError('')
   }, [signup.confirm_password, signup.password])
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault()
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    re.test(signup.email) ? setError('') : setError('email address is not valid')
+    if(!re.test(signup.email)) return setError('email address is not valid')
+    setLoading(true)
+    try {
+      const responseSignup = await axios.post(`${API}/auth/signup-host`, signup)
+      setLoading(false)
+      console.log(responseSignup)
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+    }
   }
   
   return (
@@ -30,29 +42,29 @@ const SignupHost = ({signup, setSignup}) => {
             <div className="form-group-triple">
               <label htmlFor="Username" >Username</label>
               <div className="form-group-triple-input">
-                <textarea id="username" rows="2" name="username" placeholder="(Username)" value={signup.username} onChange={(e) => (setSignup('username', e.target.value, setError('')))} onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = '(Username)'} required></textarea>
+                <textarea id="username" rows="1" name="username" placeholder="(Username)" value={signup.username} onChange={(e) => (setSignup('username', e.target.value, setError('')))} onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = '(Username)'} wrap="off" onKeyDown={(e) => e.keyCode == 13 ? e.preventDefault() : null} required></textarea>
               </div>
             </div>
             <div className="form-group-triple">
               <label htmlFor="Email">Email</label>
               <div className="form-group-triple-input">
-                <textarea id="email" rows="2" name="emaim" placeholder="(Email)" value={signup.email} onChange={(e) => (setSignup('email', e.target.value), setError(''))} onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = '(Email)'} required></textarea>
+                <textarea id="email" rows="1" name="emaim" placeholder="(Email)" value={signup.email} onChange={(e) => (setSignup('email', e.target.value), setError(''))} onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = '(Email)'} wrap="off" onKeyDown={(e) => e.keyCode == 13 ? e.preventDefault() : null} required></textarea>
               </div>
             </div>
             <div className="form-group-triple">
               <label htmlFor="Password">Password</label>
               <div className="form-group-triple-input">
-                <textarea id="password" rows="2" name="password" placeholder="(Password)" value={signup.password} onChange={(e) => (setSignup('password', e.target.value), setError(''))}  onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = '(Password)'} required></textarea>
+                <textarea id="password" rows="1" name="password" placeholder="(Password)" value={signup.password} onChange={(e) => (setSignup('password', e.target.value), setError(''))}  onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = '(Password)'} wrap="off" onKeyDown={(e) => e.keyCode == 13 ? e.preventDefault() : null} required></textarea>
               </div>
             </div>
             <div className="form-group-triple">
               <label htmlFor="Confirm Password">Confirm Password</label>
               <div className="form-group-triple-input">
-                <textarea id="confirm_password" rows="2" name="confirm_password" placeholder="(Confirm Password)" value={signup.confirm_password} onChange={(e) => (setSignup('confirm_password', e.target.value), setError(''))} onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = '(Confirm Password)'} required></textarea>
+                <textarea id="confirm_password" rows="1" name="confirm_password" placeholder="(Confirm Password)" value={signup.confirm_password} onChange={(e) => (setSignup('confirm_password', e.target.value), setError(''))} onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = '(Confirm Password)'} wrap="off" onKeyDown={(e) => e.keyCode == 13 ? e.preventDefault() : null} required></textarea>
               </div>
             </div>
             <div className="form-group-triple">
-              <button type="submit">Submit</button>
+              <button type="submit">{!loading && <span>Submit</span>} {loading && <div className="loading"><span></span><span></span><span></span></div>}</button>
             </div>
             {error && <div className="form-error-message">{error}</div>}
           </form>

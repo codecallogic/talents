@@ -81,6 +81,34 @@ body {
     font-size: 1.4rem;
     color: red; }
 
+#password,
+#confirm_password {
+  -webkit-text-security: disc;
+  text-security: disc; }
+
+.loading span {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0 0.5rem;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  animation-name: dots;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out; }
+  .loading span:nth-child(1) {
+    animation-delay: 0.2s; }
+  .loading span:nth-child(2) {
+    animation-delay: 0.4s; }
+  .loading span:nth-child(3) {
+    animation-delay: 0.8s; }
+
+@keyframes dots {
+  50% {
+    opacity: 0;
+    transform: scale(0.7) translateY(0.1rem); } }
+
 .header {
   background-image: url("https://dg38gzoej82xh.cloudfront.net/sites/default/files/styles/image_gallery_xl/public/images/node/article/18-barman-behind-bar.jpg?itok=VgQywy7g");
   background-size: cover;
@@ -101,6 +129,9 @@ body {
     .header-container-title {
       font-size: 4.8rem;
       width: 50rem; }
+      @media only screen and (max-width: 992px) {
+        .header-container-title {
+          width: 100%; } }
     .header-container-button {
       width: max-content;
       padding: 1rem 2rem;
@@ -274,11 +305,13 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  padding: 40rem 0rem;
   background-color: #ef1d4b; }
   @media only screen and (max-width: 992px) {
     .signupHost-leftColumn {
-      height: max-content; } }
+      height: max-content;
+      padding: 5rem 0; } }
   .signupHost-leftColumn-title {
     font-size: 4.8rem;
     color: white;
@@ -297,3 +330,72 @@ body {
       padding: 5rem; } }
   .signupHost-rightColumn-title {
     font-size: 2.4rem; }
+
+.experts {
+  display: flex;
+  justify-content: center; }
+  .experts-container {
+    width: 100rem;
+    margin: 5rem 0;
+    padding: 5rem; }
+  .experts-title {
+    font-size: 3.2rem;
+    font-weight: 700; }
+  .experts-breadcrumbs {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin: 0 0 1rem 0; }
+    .experts-breadcrumbs a {
+      margin-right: 1rem; }
+      .experts-breadcrumbs a:hover {
+        cursor: pointer;
+        text-decoration: underline; }
+    .experts-breadcrumbs span {
+      margin: 0 1rem 0 1rem; }
+  .experts-cards {
+    display: flex;
+    margin: 2rem 0; }
+    .experts-cards-item {
+      box-shadow: 0.2rem 0.8rem 1rem 0.4rem rgba(0, 0, 0, 0.4);
+      width: 30rem;
+      padding: 2rem;
+      border-radius: 1.2rem; }
+      .experts-cards-item-el svg {
+        width: 3rem;
+        height: 3rem;
+        fill: #d87c25; }
+      .experts-cards-item-el-title {
+        font-size: 2.4rem;
+        margin: 1rem 0;
+        font-weight: 500; }
+      .experts-cards-item-el-info {
+        font-size: 1.5rem; }
+      .experts-cards-item:hover {
+        cursor: pointer; }
+  .experts-profile {
+    display: flex;
+    margin: 2rem 0; }
+    .experts-profile-left {
+      width: 40%;
+      padding: 2rem 0;
+      border: 0.1rem solid #ababab;
+      border-radius: 1.2rem; }
+      .experts-profile-left-image {
+        display: flex;
+        align-items: center;
+        flex-direction: column; }
+        .experts-profile-left-image svg {
+          width: 60%;
+          fill: #515151; }
+        .experts-profile-left-image a {
+          font-size: 1.4rem;
+          text-decoration: underline; }
+          .experts-profile-left-image a:hover {
+            cursor: pointer; }
+    .experts-profile-right {
+      width: 100%;
+      padding: 2rem 0 0 5rem;
+      background-color: yellow; }
+      .experts-profile-right-title {
+        font-size: 3.2rem;
+        font-weight: 700; }

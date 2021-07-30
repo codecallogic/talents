@@ -75,3 +75,9 @@
     }
   }
 }
+
+#password,
+#confirm_password {
+  -webkit-text-security: disc;
+  text-security: disc;
+}

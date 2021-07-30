@@ -3,6 +3,7 @@
 
 // HELPERS
 @import 'helpers/forms.scss';
+@import 'helpers/animations.scss';
 
 // COMPONENTS
 @import 'components/header.scss';
@@ -11,3 +12,4 @@
 // PAGES
 @import 'pages/home.scss';
 @import 'pages/signup.scss';
+@import 'pages/experts/experts.scss';
