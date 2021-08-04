@@ -9,29 +9,8 @@ const ExpertAccount = ({dash, profile, changeView, newUser, createExpertProfile}
 
   const [input_dropdown, setInputDropdown] = useState('')
 
-  const imageHandler = (e, type) => {
-    console.log('Hello')
-    // let imageMax = imageCount + e.target.files.length
-    // if(imageMax > 3){ setError('Max number of images is 3'); window.scrollTo(0,document.body.scrollHeight); return}
-
-    // if(e.target.files.length > 0){
-    //   let array = Array.from(e.target.files)
-    //   array.forEach( (item) => {
-    //     let url = URL.createObjectURL(item);
-    //     item.location = url
-    //   })
-    // }
-    // if(type == 'slab'){
-    //   setSelectedFiles( prevState => [...selectedFiles, ...e.target.files])
-    //   addSlabImages([...selectedFiles, ...e.target.files])
-    //   setImageCount(imageMax)
-    // }
-
-    // if(type == 'product'){
-    //   setSelectedFiles( prevState => [...selectedFiles, ...e.target.files])
-    //   addProductImages([...selectedFiles, ...e.target.files])
-    //   setImageCount(imageMax)
-    // }
+  const handleProfileUpdate = (e) => {
+    e.preventDefault()
   }
   
   return (
@@ -60,15 +39,15 @@ const ExpertAccount = ({dash, profile, changeView, newUser, createExpertProfile}
               <SVGs svg={'account-circle'}></SVGs>
               <a>Update photo</a>
             </label>
-            <input type="file" name="profile_image" id="profile_image" accept="image/*" onClick={(e) => imageHandler(e)}/>
+            <input type="file" name="profile_image" id="profile_image" accept="image/*" onChange={(e) => createExpertProfile('UPDATE_EXPERT', 'photo', e.target.files[0])}/>
           </div>
           <div className="experts-profile-right">
             <div className="experts-profile-right-title">Hi, I'm {newUser ? newUser.username : 'Unknown'}</div>
-            <form action="" className="form">
+            <form action="" className="form" onSubmit={handleProfileUpdate}>
               <div className="form-group-single">
                 <label htmlFor="Username" >Description</label>
                 <div className="form-group-single-input">
-                  <textarea id="username" rows="5" name="username" placeholder="(Description)" onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = '(Description)'} wrap="off" onKeyDown={(e) => e.keyCode == 13 ? e.preventDefault() : null} required></textarea>
+                  <textarea id="username" rows="5" name="username" placeholder="(Description)" onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = '(Description)'} wrap="off" onKeyDown={(e) => e.keyCode == 13 ? e.preventDefault() : null} value={profile.description} onChange={(e) => createExpertProfile('UPDATE_EXPERT', 'description', e.target.value)} required></textarea>
                 </div>
                 
               </div>
@@ -138,7 +117,7 @@ const ExpertAccount = ({dash, profile, changeView, newUser, createExpertProfile}
                     ))}
                   </div>
                   <div className="form-group-single">
-                    <button>Update</button>
+                    <button type="submit">Update</button>
                   </div>
                 </div>
             </form>

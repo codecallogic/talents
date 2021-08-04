@@ -30,6 +30,12 @@ export const expertAuthReducer = (state = initialState, action) => {
         [action.name]: state[action.name].filter( item => item !== action.value)
       }
     
+    case "UPDATE_EXPERT":
+      return {
+        ...state,
+        [action.name]: action.value
+      }
+    
     default: 
       return state
   }

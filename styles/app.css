@@ -236,7 +236,8 @@ body {
   height: max-content;
   color: white;
   transition: all 0.5s ease-in-out;
-  height: 6rem; }
+  height: 6rem;
+  z-index: 200; }
   @media only screen and (max-width: 992px) {
     .nav {
       padding: 2rem 1rem; } }
