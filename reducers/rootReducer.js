@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux'
-import {hostingAuthReducer} from './hostingAuthReducer'
-import {hostingDashReducer} from './hostingDashReducer'
+import {expertAuthReducer} from './expertAuthReducer'
+import {expertDashReducer} from './expertDashReducer'
 
 
 const rootReducer = combineReducers({
-  hostingAuth: hostingAuthReducer,
-  hostingDash: hostingDashReducer
+  expertAuth: expertAuthReducer,
+  expertDash: expertDashReducer
 })
 
 export default rootReducer

@@ -2,7 +2,7 @@
   width: 100%;
   margin: 2rem 0;
 
-  &-group-triple {
+  &-group-single {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -26,13 +26,14 @@
     }
 
     button {
+      margin: 1rem 0;
       padding: 1rem 2rem;
       font-size: 1.4rem;
       outline: none;
       border: none;
       border-radius: 0.5rem;
       color: white;
-      background-color: $color-scheme-1;
+      background-color: $color-scheme-3;
 
       &:hover {
         cursor: pointer;
@@ -50,7 +51,7 @@
         flex-grow: 1;
         border-radius: 1.2rem;
         resize: none;
-        padding: 1.2rem 2rem 0 2rem;
+        padding: 1rem 2rem 0rem 2rem;
         outline: none;
         font-size: 1.4rem;
         font-family: inherit;
@@ -68,11 +69,125 @@
     }
   }
 
+  &-group-single-dropdown {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0rem 1rem 2rem 0;
+
+    @media only screen and (max-width: $large) {
+      width: 100%;
+      margin: 0 0 2rem 0;
+    }
+
+    label {
+      font-size: 1.6rem;
+      margin: 1rem 0;
+    }
+
+    &-input {
+      border-top-right-radius: 0.5rem;
+      border-top-left-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      position: relative;
+      border: 0.1rem solid $color-light-shade-scheme-1;
+
+      textarea {
+        flex-grow: 1;
+        border-top-right-radius: 0.5rem;
+        border-top-left-radius: 0.5rem;
+        resize: none;
+        padding: 1.2rem 2rem 0 2rem;
+        outline: none;
+        font-size: 1.4rem;
+        font-family: inherit;
+        border: none;
+      }
+
+      svg {
+        width: 3rem;
+        height: 3rem;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      &-list {
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        font-size: 1.4rem;
+        border-top: 0.1rem solid $color-light-shade-scheme-1;
+        border: 0.1rem solid $color-light-shade-scheme-1;
+        border-bottom-right-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        box-shadow: 0rem 1rem 0.5rem 0.2rem rgba(0, 0, 0, 0.2);
+        z-index: 100;
+
+        &-item {
+          display: flex;
+          align-items: center;
+          padding: 0.8rem 2rem;
+          font-size: inherit;
+          background-color: white;
+
+          &:last-child {
+            border-bottom-right-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+            padding-bottom: 1.5rem;
+          }
+
+          svg {
+            width: 2rem;
+            height: 2rem;
+            fill: $color-scheme-1;
+            margin-left: 1rem;
+          }
+
+          &:hover {
+            cursor: pointer;
+            background-color: $color-light-shade-scheme-1;
+          }
+        }
+      }
+    }
+
+    &-selected {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 1rem 0;
+
+      &-item {
+        font-size: 1.4rem;
+        text-transform: capitalize;
+        background-color: $color-scheme-1;
+        width: max-content;
+        padding: 1rem 2rem;
+        border-radius: 1.2rem;
+        color: white;
+        margin: 0 1rem 1rem 0;
+      }
+    }
+  }
+
   &-error {
     &-message {
       font-size: 1.4rem;
       color: red;
+      height: 3rem;
     }
+  }
+
+  &-message {
+    font-size: 1.4rem;
+    color: $color-scheme-3;
+    height: 3rem;
+  }
+
+  &-redirect {
+    font-size: 1.4rem;
   }
 }
 

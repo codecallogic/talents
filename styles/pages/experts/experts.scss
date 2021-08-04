@@ -71,8 +71,9 @@
     margin: 2rem 0;
 
     &-left {
-      width: 40%;
-      padding: 2rem 0;
+      width: 50%;
+      height: max-content;
+      padding: 5rem 0;
       border: 0.1rem solid $color-light-gray;
       border-radius: 1.2rem;
 
@@ -95,12 +96,15 @@
           }
         }
       }
+
+      input {
+        display: none;
+      }
     }
 
     &-right {
       width: 100%;
-      padding: 2rem 0 0 5rem;
-      background-color: yellow;
+      padding: 0rem 0 0 5rem;
 
       &-title {
         font-size: 3.2rem;

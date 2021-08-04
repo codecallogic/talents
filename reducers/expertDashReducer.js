@@ -2,7 +2,7 @@ const initialState = {
   view: 'main',
 }
 
-export const hostingDashReducer = (state = initialState, action) => {
+export const expertDashReducer = (state = initialState, action) => {
   switch(action.type){
 
     case "DASH":

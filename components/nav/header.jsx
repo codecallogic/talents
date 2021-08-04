@@ -1,10 +1,10 @@
 import Nav from './nav'
 
-const Header = ({}) => {
+const Header = ({userExpert}) => {
   
   return (
     <div className="header">
-      <Nav></Nav>
+      <Nav userExpert={userExpert}></Nav>
       <div className="header-container">
         <div className="header-container-title">Connect with talent from the beverage world</div>
         <div className="header-container-button">Discover talents</div>

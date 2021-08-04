@@ -30,56 +30,140 @@ body {
 .form {
   width: 100%;
   margin: 2rem 0; }
-  .form-group-triple {
+  .form-group-single {
     display: flex;
     flex-direction: column;
     width: 100%;
     margin: 0rem 1rem 2rem 0; }
-    .form-group-triple-title {
+    .form-group-single-title {
       font-size: 1.6rem;
       margin: 1rem 0;
       width: 100%;
       justify-self: flex-start; }
     @media only screen and (max-width: 992px) {
-      .form-group-triple {
+      .form-group-single {
         width: 100%;
         margin: 0 0 2rem 0; } }
-    .form-group-triple label {
+    .form-group-single label {
       font-size: 1.6rem;
       margin: 1rem 0; }
-    .form-group-triple button {
+    .form-group-single button {
+      margin: 1rem 0;
       padding: 1rem 2rem;
       font-size: 1.4rem;
       outline: none;
       border: none;
       border-radius: 0.5rem;
       color: white;
-      background-color: #ef1d4b; }
-      .form-group-triple button:hover {
+      background-color: #194e80; }
+      .form-group-single button:hover {
         cursor: pointer; }
-    .form-group-triple-input {
+    .form-group-single-input {
       border-radius: 1.2rem;
       display: flex;
       align-items: center;
       position: relative;
       border: 0.1rem solid #dbdbdb; }
-      .form-group-triple-input textarea {
+      .form-group-single-input textarea {
         flex-grow: 1;
         border-radius: 1.2rem;
+        resize: none;
+        padding: 1rem 2rem 0rem 2rem;
+        outline: none;
+        font-size: 1.4rem;
+        font-family: inherit;
+        border: none; }
+      .form-group-single-input svg {
+        width: 3rem;
+        height: 3rem; }
+        .form-group-single-input svg:hover {
+          cursor: pointer; }
+  .form-group-single-dropdown {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0rem 1rem 2rem 0; }
+    @media only screen and (max-width: 992px) {
+      .form-group-single-dropdown {
+        width: 100%;
+        margin: 0 0 2rem 0; } }
+    .form-group-single-dropdown label {
+      font-size: 1.6rem;
+      margin: 1rem 0; }
+    .form-group-single-dropdown-input {
+      border-top-right-radius: 0.5rem;
+      border-top-left-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      position: relative;
+      border: 0.1rem solid #dbdbdb; }
+      .form-group-single-dropdown-input textarea {
+        flex-grow: 1;
+        border-top-right-radius: 0.5rem;
+        border-top-left-radius: 0.5rem;
         resize: none;
         padding: 1.2rem 2rem 0 2rem;
         outline: none;
         font-size: 1.4rem;
         font-family: inherit;
         border: none; }
-      .form-group-triple-input svg {
+      .form-group-single-dropdown-input svg {
         width: 3rem;
         height: 3rem; }
-        .form-group-triple-input svg:hover {
+        .form-group-single-dropdown-input svg:hover {
           cursor: pointer; }
+      .form-group-single-dropdown-input-list {
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        font-size: 1.4rem;
+        border-top: 0.1rem solid #dbdbdb;
+        border: 0.1rem solid #dbdbdb;
+        border-bottom-right-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        box-shadow: 0rem 1rem 0.5rem 0.2rem rgba(0, 0, 0, 0.2);
+        z-index: 100; }
+        .form-group-single-dropdown-input-list-item {
+          display: flex;
+          align-items: center;
+          padding: 0.8rem 2rem;
+          font-size: inherit;
+          background-color: white; }
+          .form-group-single-dropdown-input-list-item:last-child {
+            border-bottom-right-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+            padding-bottom: 1.5rem; }
+          .form-group-single-dropdown-input-list-item svg {
+            width: 2rem;
+            height: 2rem;
+            fill: #ef1d4b;
+            margin-left: 1rem; }
+          .form-group-single-dropdown-input-list-item:hover {
+            cursor: pointer;
+            background-color: #dbdbdb; }
+    .form-group-single-dropdown-selected {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 1rem 0; }
+      .form-group-single-dropdown-selected-item {
+        font-size: 1.4rem;
+        text-transform: capitalize;
+        background-color: #ef1d4b;
+        width: max-content;
+        padding: 1rem 2rem;
+        border-radius: 1.2rem;
+        color: white;
+        margin: 0 1rem 1rem 0; }
   .form-error-message {
     font-size: 1.4rem;
-    color: red; }
+    color: red;
+    height: 3rem; }
+  .form-message {
+    font-size: 1.4rem;
+    color: #194e80;
+    height: 3rem; }
+  .form-redirect {
+    font-size: 1.4rem; }
 
 #password,
 #confirm_password {
@@ -164,6 +248,8 @@ body {
     background-image: linear-gradient(90deg, #ef1d4b, #ef1d4b); }
   .nav-logo {
     font-size: 3.2rem; }
+    .nav-logo:hover {
+      cursor: pointer; }
     @media only screen and (max-width: 992px) {
       .nav-logo {
         font-size: 2.8rem; } }
@@ -245,6 +331,14 @@ body {
         display: none; }
         .nav-menu-dropdown-input:checked ~ .nav-menu-dropdown-container {
           display: block; }
+
+.primary-background {
+  background-image: linear-gradient(90deg, #ef1d4b, #ef1d4b); }
+  .primary-background div {
+    color: white !important; }
+  .primary-background > .nav-menu-dropdown-container-item:hover {
+    background-color: white !important;
+    color: #ef1d4b !important; }
 
 .home {
   width: 100%; }
@@ -376,8 +470,9 @@ body {
     display: flex;
     margin: 2rem 0; }
     .experts-profile-left {
-      width: 40%;
-      padding: 2rem 0;
+      width: 50%;
+      height: max-content;
+      padding: 5rem 0;
       border: 0.1rem solid #ababab;
       border-radius: 1.2rem; }
       .experts-profile-left-image {
@@ -392,10 +487,11 @@ body {
           text-decoration: underline; }
           .experts-profile-left-image a:hover {
             cursor: pointer; }
+      .experts-profile-left input {
+        display: none; }
     .experts-profile-right {
       width: 100%;
-      padding: 2rem 0 0 5rem;
-      background-color: yellow; }
+      padding: 0rem 0 0 5rem; }
       .experts-profile-right-title {
         font-size: 3.2rem;
         font-weight: 700; }
