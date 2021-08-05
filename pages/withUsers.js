@@ -41,7 +41,9 @@ const withUser = Page => {
       }
 
       if(!userExpert){
-
+        return {
+          ...(Page.getInitialProps ? await Page.getInitialProps(context) : {})
+        }
       }else{
         return {
             ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),

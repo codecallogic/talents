@@ -70,12 +70,21 @@
     display: flex;
     margin: 2rem 0;
 
+    @media only screen and (max-width: $large) {
+      display: block;
+    }
+
     &-left {
       width: 50%;
       height: max-content;
       padding: 5rem 0;
       border: 0.1rem solid $color-light-gray;
       border-radius: 1.2rem;
+
+      @media only screen and (max-width: $large) {
+        width: 100%;
+        border: none;
+      }
 
       &-image {
         display: flex;
@@ -85,6 +94,18 @@
         svg {
           width: 60%;
           fill: $color-background-2;
+
+          @media only screen and (max-width: $large) {
+            width: min-content;
+          }
+        }
+
+        img {
+          object-fit: cover;
+          width: 16rem;
+          height: 16rem;
+          border-radius: 50%;
+          margin: 0 0 1rem 0;
         }
 
         a {

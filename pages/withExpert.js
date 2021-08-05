@@ -64,6 +64,7 @@ const withUser = Page => {
         return {
             ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),
             newUser,
+            newToken
         }
       }
     }

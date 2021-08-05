@@ -18,7 +18,7 @@ const Nav = ({userExpert, changeStyle}) => {
           <label className="nav-menu-dropdown-label" htmlFor="nav-dropdown"><span className="nav-menu-dropdown-label-icon">&nbsp;</span><SVG svg={'account-circle'}></SVG></label>
           <input className="nav-menu-dropdown-input" type="checkbox" name="nav-dropdown" id="nav-dropdown" />
           <div className={`nav-menu-dropdown-container ` + (changeStyle ? ` ${changeStyle}` : null)}>
-            {userExpert ? null : <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = '/expert'}>Login</div>}
+            {userExpert ? null : <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = '/expert-login'}>Login</div>}
             {userExpert ? <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = '/experts'}>Account</div> : null }
           </div>
         </div>

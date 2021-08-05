@@ -2,15 +2,41 @@ import Nav from '../../components/nav/nav'
 import SVGs from '../../files/SVGs'
 import { useEffect, useState } from 'react'
 import {connect} from 'react-redux'
+import {nanoid} from 'nanoid'
 import withExpert from '../withExpert'
 import {activities, specialties, locations} from '../../files/expertTalents'
+import {API} from '../../config'
+import axios from 'axios'
 
-const ExpertAccount = ({dash, profile, changeView, newUser, createExpertProfile}) => {
+const ExpertAccount = ({dash, profile, changeView, newUser, newToken, createExpertProfile}) => {
 
   const [input_dropdown, setInputDropdown] = useState('')
 
-  const handleProfileUpdate = (e) => {
+  const handleProfileUpdate = async (e) => {
     e.preventDefault()
+    console.log(profile)
+    let data = new FormData()
+    let fileID = nanoid()
+    
+    if(profile.photo) data.append('file', profile.photo, `expert-${fileID}.${profile.photo.name.split('.')[1]}`)
+
+    if(profile){
+      for(const key in profile){
+        if(key !== 'photo') data.append(key, profile[key])
+      }
+    }
+
+    try {
+      const responseProfile = await axios.post(`${API}/expert/profile-create`, data, {
+        headers: {
+          Authorization: `Bearer ${newToken}`,
+          contentType: `application/json`
+        }
+      })
+      console.log(responseProfile)
+    } catch (error) {
+      console.log(error)
+    }
   }
   
   return (
@@ -36,10 +62,11 @@ const ExpertAccount = ({dash, profile, changeView, newUser, createExpertProfile}
         <div className="experts-profile">
           <div className="experts-profile-left">
             <label htmlFor="profile_image" className="experts-profile-left-image">
-              <SVGs svg={'account-circle'}></SVGs>
+              {!profile.photo && <SVGs svg={'account-circle'}></SVGs>}
+              {profile.photo && <img src={URL.createObjectURL(profile.photo)}></img>}
               <a>Update photo</a>
             </label>
-            <input type="file" name="profile_image" id="profile_image" accept="image/*" onChange={(e) => createExpertProfile('UPDATE_EXPERT', 'photo', e.target.files[0])}/>
+            <input type="file" name="profile_image" id="profile_image" accept="image/*" onChange={(e) => (createExpertProfile('UPDATE_EXPERT', 'photo', e.target.files[0]), handleProfileUpdate(e))}/>
           </div>
           <div className="experts-profile-right">
             <div className="experts-profile-right-title">Hi, I'm {newUser ? newUser.username : 'Unknown'}</div>
