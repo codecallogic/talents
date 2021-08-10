@@ -6,25 +6,73 @@ import {nanoid} from 'nanoid'
 import withExpert from '../withExpert'
 import {activities, specialties, locations} from '../../files/expertTalents'
 import {API} from '../../config'
+import {useRouter} from 'next/router'
 import axios from 'axios'
 
-const ExpertAccount = ({dash, profile, changeView, newUser, newToken, createExpertProfile}) => {
+// TODO: Modify invoice to include client user data model and CRUD, client sign up email verification
 
+const ExpertAccount = ({dash, profile, changeView, newUser, newToken, createExpertProfile}) => {
+  console.log(newUser)
+  const router = useRouter()
   const [input_dropdown, setInputDropdown] = useState('')
+  const [loading_profile_image, setLoadingProfileImage] = useState(false)
+  const [loading_talent_image, setLoadingTalentImage] = useState(false)
+
+  useEffect(() => {
+    if(router.query.view) router.query.view == 'profile' ? changeView('profile') : null
+
+    for(let key in newUser){
+      if(key == 'description') createExpertProfile("UPDATE_EXPERT", 'description', newUser.description)
+      if(key == 'activity'){
+        newUser.activity.forEach((item) => {
+          createExpertProfile('TALENTS', 'activity', item)
+        })
+      }
+      if(key == 'specialty'){
+        newUser.specialty.forEach((item) => {
+          createExpertProfile('TALENTS', 'specialty', item)
+        })
+      }
+      if(key == 'location'){
+        newUser.location.forEach((item) => {
+          createExpertProfile('TALENTS', 'location', item)
+        })
+      }
+    }
+  }, [])
+  
+  useEffect(() => {
+    if(profile.photo) handleProfileUpdate()
+    // handleProfileUpdate()
+  }, [profile.photo])
+
+  useEffect(() => {
+    if(profile.photo_talent) handleProfileUpdate()
+    // handleProfileUpdate()
+  }, [profile.photo_talent])
 
   const handleProfileUpdate = async (e) => {
-    e.preventDefault()
-    console.log(profile)
+    if(e) e.preventDefault()
+
     let data = new FormData()
     let fileID = nanoid()
-    
-    if(profile.photo) data.append('file', profile.photo, `expert-${fileID}.${profile.photo.name.split('.')[1]}`)
+
+    if(profile.photo){data.append('file', profile.photo, `profiles/expert-${fileID}.${profile.photo.name.split('.')[1]}`), createExpertProfile("UPDATE_EXPERT", 'photo', ''), setLoadingProfileImage(true)}
+    if(profile.photo_talent){data.append('file', profile.photo_talent, `talents/expert-${fileID}.${profile.photo_talent.name.split('.')[1]}`), createExpertProfile("UPDATE_EXPERT", 'photo_talent', ''), setLoadingTalentImage(true)}
 
     if(profile){
       for(const key in profile){
-        if(key !== 'photo') data.append(key, profile[key])
+        if(key !== 'photo' || key !== 'photo_talent' || key !== 'activity' || key !== 'specialty' || key !== 'location') data.append(key, profile[key])
+        if(key == 'activity') data.append(key, JSON.stringify(profile[key]))
+        if(key == 'specialty') data.append(key, JSON.stringify(profile[key]))
+        if(key == 'location') data.append(key, JSON.stringify(profile[key]))
       }
     }
+
+    if(newUser.id) data.append('id', newUser.id)
+
+    if(profile.photo && newUser.photo.length > 0) data.append('delete_photo', newUser.photo[0].key)
+    if(profile.photo_talent && newUser.photo_talent.length > 0) data.append('delete_photo_talent', newUser.photo_talent[0].key)
 
     try {
       const responseProfile = await axios.post(`${API}/expert/profile-create`, data, {
@@ -33,9 +81,10 @@ const ExpertAccount = ({dash, profile, changeView, newUser, newToken, createExpe
           contentType: `application/json`
         }
       })
-      console.log(responseProfile)
+      window.location.href = `/experts?view=profile`
     } catch (error) {
-      console.log(error)
+      console.log(error.response)
+      if(error) window.location.href = `/experts?view=profile`
     }
   }
   
@@ -62,15 +111,23 @@ const ExpertAccount = ({dash, profile, changeView, newUser, newToken, createExpe
         <div className="experts-profile">
           <div className="experts-profile-left">
             <label htmlFor="profile_image" className="experts-profile-left-image">
-              {!profile.photo && <SVGs svg={'account-circle'}></SVGs>}
-              {profile.photo && <img src={URL.createObjectURL(profile.photo)}></img>}
-              <a>Update photo</a>
+              {!loading_profile_image && newUser.photo.length > 0 ? <img src={newUser.photo[0].location}></img> : null}
+              {loading_profile_image ? <iframe src="https://giphy.com/embed/sSgvbe1m3n93G" width="30" height="30" frameBorder="0" className="giphy-loading-profile-image" allowFullScreen></iframe> : newUser.photo.length < 1 ? <SVGs svg={'account-circle'}></SVGs> : null}
+              <a>Update profile photo</a>
             </label>
-            <input type="file" name="profile_image" id="profile_image" accept="image/*" onChange={(e) => (createExpertProfile('UPDATE_EXPERT', 'photo', e.target.files[0]), handleProfileUpdate(e))}/>
+            <input type="file" name="profile_image" id="profile_image" accept="image/*" onChange={(e) => (createExpertProfile('UPDATE_EXPERT', 'photo', e.target.files[0]))}/>
           </div>
           <div className="experts-profile-right">
             <div className="experts-profile-right-title">Hi, I'm {newUser ? newUser.username : 'Unknown'}</div>
             <form action="" className="form" onSubmit={handleProfileUpdate}>
+              <div className="form-group-single">
+                <label htmlFor="talent_image" className="experts-profile-right-image">
+                {!loading_talent_image && newUser.photo_talent.length > 0 ? <img src={newUser.photo_talent[0].location}></img> : null}
+                {loading_talent_image ? <iframe src="https://giphy.com/embed/sSgvbe1m3n93G" width="30" height="30" frameBorder="0" className="giphy-loading-talent-image" allowFullScreen></iframe> : newUser.photo_talent.length < 1 ? <SVGs svg={'file-image'}></SVGs> : null}
+                <a>Update talent photo</a>
+                </label>
+                <input type="file" name="talent_image" id="talent_image" className="experts-profile-right-image-input" accept="image/*" onChange={(e) => (createExpertProfile('UPDATE_EXPERT', 'photo_talent', e.target.files[0]))}/>
+              </div>
               <div className="form-group-single">
                 <label htmlFor="Username" >Description</label>
                 <div className="form-group-single-input">
@@ -144,7 +201,7 @@ const ExpertAccount = ({dash, profile, changeView, newUser, newToken, createExpe
                     ))}
                   </div>
                   <div className="form-group-single">
-                    <button type="submit">Update</button>
+                    {loading_talent_image || loading_profile_image ? null : <button type="submit">Update</button>}
                   </div>
                 </div>
             </form>

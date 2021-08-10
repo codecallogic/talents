@@ -176,14 +176,16 @@
     &-message {
       font-size: 1.4rem;
       color: red;
-      height: 3rem;
+      min-height: 3rem;
+      max-height: 5rem;
     }
   }
 
   &-message {
     font-size: 1.4rem;
     color: $color-scheme-3;
-    height: 3rem;
+    min-height: 3rem;
+    max-height: 5rem;
   }
 
   &-redirect {
@@ -195,4 +197,16 @@
 #confirm_password {
   -webkit-text-security: disc;
   text-security: disc;
+}
+
+.giphy-loading-profile-image {
+  width: 16rem;
+  height: 16rem;
+  margin: 0 0 1rem 0;
+}
+
+.giphy-loading-talent-image {
+  width: 10rem;
+  height: 10rem;
+  margin: 0 1rem 1rem 0;
 }

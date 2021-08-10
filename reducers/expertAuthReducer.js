@@ -4,6 +4,8 @@ const initialState = {
   password: '',
   confirm_password: '',
   photo: '',
+  photo_talent: '',
+  description: '',
   activity: [],
   specialty: [],
   location: []
@@ -34,6 +36,12 @@ export const expertAuthReducer = (state = initialState, action) => {
       return {
         ...state,
         [action.name]: action.value
+      }
+
+    case "TALENTS_PREFILLED":
+      return {
+        ...state,
+        [action.name]: [...action.value]
       }
     
     default: 
