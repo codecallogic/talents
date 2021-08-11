@@ -82,7 +82,7 @@ const ExpertAccount = ({dash, profile, changeView, newUser, newToken, createExpe
         }
       })
       console.log(responseProfile.data)
-      window.location.href = `/experts?view=profile`
+      // window.location.href = `/experts?view=profile`
     } catch (error) {
       console.log(error.response)
       if(error) window.location.href = `/experts?view=profile`
