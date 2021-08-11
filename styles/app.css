@@ -553,6 +553,8 @@ body {
   @media only screen and (max-width: 992px) {
     .talents {
       padding: 5rem 2rem; } }
+  .talents-selected {
+    background-color: #f5f5f5; }
   .talents-title {
     font-size: 3.2rem;
     color: #194e80; }
@@ -581,6 +583,8 @@ body {
       .talents-menu-list::-webkit-scrollbar-thumb {
         background-color: #dfdfdf; }
       .talents-menu-list-item {
+        display: flex;
+        align-items: center;
         padding: 1rem;
         font-size: 1.4rem;
         margin-left: 1.5rem;
@@ -588,6 +592,75 @@ body {
         color: #5e5e5e;
         border-radius: 1.2rem;
         min-width: max-content; }
+        .talents-menu-list-item svg {
+          width: 2rem;
+          height: 2rem;
+          margin-left: 1rem;
+          fill: #ef1d4b; }
         .talents-menu-list-item:hover {
           background-color: #f5f5f5;
           cursor: pointer; }
+  .talents-collection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1rem 0 0 0; }
+    @media only screen and (max-width: 768px) {
+      .talents-collection {
+        justify-content: center; } }
+    .talents-collection-box {
+      display: flex;
+      width: 55rem;
+      height: 30rem;
+      margin: 0 2rem 2rem 0;
+      border: 0.2rem solid #f5f5f5;
+      border-radius: 1.2rem;
+      padding: 1rem;
+      box-sizing: content-box; }
+      .talents-collection-box-left {
+        width: 25rem; }
+        .talents-collection-box-left img {
+          object-fit: cover;
+          width: 25rem;
+          height: 100%; }
+      .talents-collection-box-right {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 2rem 0 0 3rem;
+        position: relative; }
+        .talents-collection-box-right-section {
+          margin: 0 0 1rem 0; }
+          .talents-collection-box-right-section-title {
+            font-size: 1.8rem; }
+          .talents-collection-box-right-section-info {
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 1.4rem; }
+            .talents-collection-box-right-section-info span {
+              margin-right: 0.5rem;
+              text-transform: capitalize; }
+        .talents-collection-box-right-message {
+          position: absolute;
+          right: 1rem;
+          bottom: 0;
+          width: 3.5rem;
+          height: 3.5rem;
+          fill: #ef1d4b; }
+        .talents-collection-box-right-expert {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          top: 0;
+          right: 0.5rem; }
+          .talents-collection-box-right-expert img {
+            border-radius: 50%;
+            width: 5rem;
+            height: 5rem;
+            object-fit: cover; }
+          .talents-collection-box-right-expert span {
+            margin: 1rem 0 0 0;
+            font-size: 1.2rem;
+            text-transform: capitalize; }

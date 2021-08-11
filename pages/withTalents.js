@@ -15,13 +15,12 @@ const withUser = Page => {
       const user = getUser(context.req)
       const token = getToken(context.req)
 
-      let userExpert = null
+      let userClient = null
       let newToken = null
-      if(user){userExpert = user.split('=')[1]}
+      let errorFailedToLoginUser  = null
+      let errorFailedToGetData = null
+      if(user){userClient = user.split('=')[1]}
       if(token){newToken = token.split('=')[1]}
-
-      // console.log(newUser)
-      // console.log(newToken)
 
       if(newToken !== null){
         try {
@@ -32,22 +31,34 @@ const withUser = Page => {
             }
           })
           // console.log(responseUser.data)
-          userExpert = responseUser.data
+          userClient = responseUser.data
         } catch (error) {
-          userExpert = null
+          userClient = null
           // console.log(error)
           if(error) error.response ? (errorFailedToLoginUser = error.response.data) : (errorFailedToLoginUser = 'Failed to login user')
         }
       }
 
-      if(!userExpert){
+      let talents = null
+      try {
+        const responseTalents = await axios.get(`${API}/auth/all-experts`)
+        console.log(responseTalents.data)
+        talents = responseTalents.data
+      } catch (error) {
+        if(error) error.response ? (errorFailedToGetData = error.response.data) : (errorFailedToGetData = 'Failed to get data')
+      }
+
+      if(!userClient){
         return {
-          ...(Page.getInitialProps ? await Page.getInitialProps(context) : {})
+          ...(Page.getInitialProps ? await Page.getInitialProps(context) : {
+            talents
+          })
         }
       }else{
         return {
-            ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),
-            userExpert,
+          ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),
+          userClient,
+          talents
         }
       }
     }

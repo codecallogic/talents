@@ -13,7 +13,7 @@ export const specialties = [
 
 export const locations = [
   "Los Angeles, CA",
-  "San Francisco ,CA",
+  "San Francisco, CA",
   "Boston, MA",
   "New-York, NY",
   "Washington, VA",
