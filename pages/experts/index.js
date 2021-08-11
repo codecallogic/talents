@@ -12,7 +12,7 @@ import axios from 'axios'
 // TODO: Modify invoice to include client user data model and CRUD, client sign up email verification
 
 const ExpertAccount = ({dash, profile, changeView, newUser, newToken, createExpertProfile}) => {
-  console.log(newUser)
+  // console.log(newUser)
   const router = useRouter()
   const [input_dropdown, setInputDropdown] = useState('')
   const [loading_profile_image, setLoadingProfileImage] = useState(false)
@@ -81,6 +81,7 @@ const ExpertAccount = ({dash, profile, changeView, newUser, newToken, createExpe
           contentType: `application/json`
         }
       })
+      console.log(responseProfile.data)
       window.location.href = `/experts?view=profile`
     } catch (error) {
       console.log(error.response)
