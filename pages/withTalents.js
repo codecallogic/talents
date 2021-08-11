@@ -42,7 +42,7 @@ const withUser = Page => {
       let talents = null
       try {
         const responseTalents = await axios.get(`${API}/auth/all-experts`)
-        console.log(responseTalents.data)
+        // console.log(responseTalents.data)
         talents = responseTalents.data
       } catch (error) {
         if(error) error.response ? (errorFailedToGetData = error.response.data) : (errorFailedToGetData = 'Failed to get data')

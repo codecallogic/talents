@@ -4,8 +4,7 @@ import SVGs from '../files/SVGs'
 import withTalents from './withTalents'
 import {connect} from 'react-redux'
 
-const Talents = ({talents, talentsFiltered, filterTalents}) => {
-  console.log(talents)
+const Talents = ({userClient, talents, talentsFiltered, filterTalents}) => {
   const handleFilter = (item) => {
     let dataActivity = []
 
@@ -19,8 +18,6 @@ const Talents = ({talents, talentsFiltered, filterTalents}) => {
 
     if(talentsFiltered.specialty.length > 0){
       item.specialty.forEach((slug) => {
-        // if(dataSpecialty.length > 0) dataSpecialty = []
-        // dataSpecialty.push(talentsFiltered.specialty.includes(slug.trim()))
         dataSpecialty.push(talentsFiltered.specialty.some((el) => item.specialty.includes(el)))
       })
     }
@@ -33,23 +30,13 @@ const Talents = ({talents, talentsFiltered, filterTalents}) => {
       })
     }
 
-    // console.log(dataActivity, dataActivity.includes(false))
-    // console.log(dataSpecialty, dataSpecialty.includes(false))
 
     if(!dataActivity.includes(false) && !dataSpecialty.includes(false) && !dataLocation.includes(false)) return item
-    // talentsFiltered.activity.forEach((selected) => {
-    //   item.activity.some((slug) => {
-    //     console.log(slug.toLowerCase().trim())
-    //     console.log(item.activity.includes(selected.toLowerCase().trim()))
-    //     // if(item.activity.includes(slug)) return console.log(item)
-    //   })
-    // })
-    // return  item
   }
   
   return (
     <>
-    <Nav changeStyle='primary-background'></Nav>
+    <Nav changeStyle='primary-background' userExpert={userClient}></Nav>
     <div className="talents">
       <div className="talents-title">Discover Talents</div>
       <div className="talents-menu">

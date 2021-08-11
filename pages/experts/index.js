@@ -81,7 +81,7 @@ const ExpertAccount = ({dash, profile, changeView, newUser, newToken, createExpe
           contentType: `application/json`
         }
       })
-      console.log(responseProfile.data)
+      // console.log(responseProfile.data)
       window.location.href = `/experts?view=profile`
     } catch (error) {
       console.log(error.response)
