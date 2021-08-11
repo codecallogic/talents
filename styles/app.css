@@ -617,12 +617,22 @@ body {
       border-radius: 1.2rem;
       padding: 1rem;
       box-sizing: content-box; }
+      @media only screen and (max-width: 600px) {
+        .talents-collection-box {
+          flex-direction: column;
+          height: 100%; } }
       .talents-collection-box-left {
         width: 25rem; }
+        @media only screen and (max-width: 600px) {
+          .talents-collection-box-left {
+            width: 100%; } }
         .talents-collection-box-left img {
           object-fit: cover;
           width: 25rem;
           height: 100%; }
+          @media only screen and (max-width: 600px) {
+            .talents-collection-box-left img {
+              width: 100%; } }
       .talents-collection-box-right {
         display: flex;
         flex-direction: column;
@@ -647,6 +657,9 @@ body {
           width: 3.5rem;
           height: 3.5rem;
           fill: #ef1d4b; }
+          @media only screen and (max-width: 600px) {
+            .talents-collection-box-right-message {
+              right: 3rem; } }
         .talents-collection-box-right-expert {
           display: flex;
           flex-direction: column;
@@ -655,6 +668,9 @@ body {
           position: absolute;
           top: 0;
           right: 0.5rem; }
+          @media only screen and (max-width: 600px) {
+            .talents-collection-box-right-expert {
+              right: 3rem; } }
           .talents-collection-box-right-expert img {
             border-radius: 50%;
             width: 5rem;

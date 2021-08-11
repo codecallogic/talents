@@ -94,12 +94,26 @@
       padding: 1rem;
       box-sizing: content-box;
 
+      @media only screen and (max-width: $small) {
+        flex-direction: column;
+        height: 100%;
+      }
+
       &-left {
         width: 25rem;
+
+        @media only screen and (max-width: $small) {
+          width: 100%;
+        }
+
         img {
           object-fit: cover;
           width: 25rem;
           height: 100%;
+
+          @media only screen and (max-width: $small) {
+            width: 100%;
+          }
         }
       }
 
@@ -136,6 +150,10 @@
           width: 3.5rem;
           height: 3.5rem;
           fill: $color-scheme-1;
+
+          @media only screen and (max-width: $small) {
+            right: 3rem;
+          }
         }
 
         &-expert {
@@ -146,6 +164,10 @@
           position: absolute;
           top: 0;
           right: 0.5rem;
+
+          @media only screen and (max-width: $small) {
+            right: 3rem;
+          }
 
           img {
             border-radius: 50%;
