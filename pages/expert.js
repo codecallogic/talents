@@ -72,7 +72,7 @@ const SignupExpert = ({signup, setSignup}) => {
               <button type="submit">{!loading && <span>Submit</span>} {loading && <div className="loading"><span></span><span></span><span></span></div>}</button>
             </div>
             {message ? <div className="form-message">{message}</div> : error ? <div className="form-error-message">{error}</div> : <div className="form-error-message"></div>}
-            <div className="form-redirect">Don't have an account <a href="/expert-login">Login</a></div>
+            <div className="form-redirect">Already have an account <a href="/expert-login">Login</a></div>
           </form>
         </div>
       </div>

@@ -1,0 +1,202 @@
+.messages {
+  display: flex;
+
+  @media only screen and (max-width: $medium) {
+    display: block;
+  }
+
+  &-list {
+    width: 25%;
+    min-height: 100vh;
+    max-height: max-content;
+    border-right: 0.1rem solid $color-light-gray-alt-2;
+
+    @media only screen and (max-width: $medium) {
+      width: 100%;
+      min-height: min-content;
+      max-height: max-content;
+    }
+
+    &-title {
+      width: 100%;
+      font-size: 2.2rem;
+      padding: 2rem;
+      background-image: radial-gradient(
+        50%,
+        rgba($color-light-shade-scheme-1, 0.2) 50%,
+        rgba($color-light-gray-alt-2, 0.5)
+      );
+      border: 0.1rem solid $color-light-gray-alt-2;
+    }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      font-size: 1.4rem;
+      border-radius: 1.2rem;
+      margin: 0.5rem 0.2rem;
+      padding: 1rem;
+      background-color: $color-light-gray;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      img {
+        border-radius: 50%;
+        width: 5rem;
+        height: 5rem;
+        object-fit: cover;
+        margin-right: 1rem;
+      }
+
+      &-user {
+        padding: 1rem;
+        text-transform: capitalize;
+
+        &-name {
+          font-size: 1.8rem;
+        }
+
+        &-message {
+          font-size: 1.4rem;
+        }
+      }
+    }
+  }
+
+  &-chatbox {
+    width: 75%;
+    padding: 3rem;
+
+    @media only screen and (max-width: $medium) {
+      width: 100%;
+    }
+
+    &-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 25rem;
+      width: 100%;
+      height: 100%;
+      font-size: 1.4rem;
+      position: relative;
+
+      @media only screen and (max-width: $extra-large) {
+        padding: 0 10rem;
+      }
+
+      @media only screen and (max-width: $large) {
+        padding: 0 10rem;
+      }
+
+      @media only screen and (max-width: $medium) {
+        padding: 0 2rem;
+      }
+
+      &-input {
+        font-size: 1.6rem;
+        width: 90%;
+        padding: 1.5rem 2rem;
+        border-radius: 1.2rem;
+        outline: none;
+        border: none;
+        resize: none;
+
+        &::-webkit-scrollbar {
+          width: 0.01rem;
+          height: 0.01rem;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: $color-light-gray-alt-2;
+        }
+
+        @media only screen and (max-width: $medium) {
+          padding: 1.5rem 0.5rem;
+        }
+
+        &-container {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          border-radius: 1.2rem;
+          outline: none;
+          border: solid 0.1rem $color-light-gray-alt-2;
+
+          @media only screen and (max-width: $extra-large) {
+            width: 100%;
+          }
+
+          @media only screen and (max-width: $medium) {
+            position: unset;
+            margin: 1rem 0;
+            width: 100%;
+            padding: 0 2rem;
+          }
+
+          &-svg {
+            display: flex;
+            align-items: center;
+          }
+
+          svg {
+            width: 2.5rem;
+            height: 2.5rem;
+            fill: $color-light-gray-alt-3;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      &-item {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        font-size: 1.4rem;
+        border-radius: 1.2rem;
+        margin: 0.5rem 0.2rem;
+        padding: 1rem;
+        background-color: $color-light-gray;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        img {
+          border-radius: 50%;
+          width: 5rem;
+          height: 5rem;
+          object-fit: cover;
+          margin-right: 1rem;
+        }
+
+        svg {
+          border-radius: 50%;
+          width: 5rem;
+          height: 5rem;
+          object-fit: cover;
+          margin-right: 1rem;
+          fill: $color-light-gray-alt-3;
+        }
+
+        &-user {
+          padding: 1rem;
+          text-transform: capitalize;
+
+          &-name {
+            font-size: 1.8rem;
+          }
+
+          &-message {
+            font-size: 1.4rem;
+          }
+        }
+      }
+    }
+  }
+}

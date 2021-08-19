@@ -8,9 +8,12 @@
 // COMPONENTS
 @import 'components/header.scss';
 @import 'components/nav.scss';
+@import 'components/loginModal.scss';
+@import 'components/messageModal.scss';
 
 // PAGES
 @import 'pages/home.scss';
 @import 'pages/signup.scss';
 @import 'pages/experts/experts.scss';
 @import 'pages/talents.scss';
+@import 'pages/messages.scss';

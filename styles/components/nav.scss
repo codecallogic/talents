@@ -46,6 +46,8 @@
     }
 
     &-item {
+      display: flex;
+      align-items: center;
       padding: 1rem 1rem;
       border-radius: 1.2rem;
       color: white;
@@ -54,6 +56,12 @@
       &:hover {
         cursor: pointer;
         background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      svg {
+        width: 2.5rem;
+        height: 2.5rem;
+        fill: white;
       }
     }
 

@@ -26,7 +26,7 @@
     }
 
     button {
-      margin: 1rem 0;
+      margin: 0.5rem 0;
       padding: 1rem 2rem;
       font-size: 1.4rem;
       outline: none;
@@ -175,6 +175,7 @@
   &-error {
     &-message {
       font-size: 1.4rem;
+      margin: 1rem;
       color: red;
       min-height: 3rem;
       max-height: 5rem;
@@ -183,14 +184,29 @@
 
   &-message {
     font-size: 1.4rem;
+    margin: 1rem;
     color: $color-scheme-3;
     min-height: 3rem;
     max-height: 5rem;
   }
 
   &-redirect {
+    margin: 1rem 0;
+    text-align: center;
     font-size: 1.4rem;
+
+    a {
+      color: $color-scheme-1;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
+}
+
+.button {
+  margin: 0 !important;
 }
 
 #password,

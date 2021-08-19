@@ -25,6 +25,13 @@
   }
 }
 
+.giphy-loading-message {
+  width: 3rem !important;
+  height: 4rem !important;
+  padding: 0 !important;
+  color: transparent;
+}
+
 @keyframes dots {
   50% {
     opacity: 0;
