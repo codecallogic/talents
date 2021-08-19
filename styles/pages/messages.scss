@@ -1,5 +1,6 @@
 .messages {
   display: flex;
+  width: 100%;
 
   @media only screen and (max-width: $medium) {
     display: block;
@@ -48,6 +49,16 @@
         height: 5rem;
         object-fit: cover;
         margin-right: 1rem;
+      }
+
+      svg {
+        width: 5rem;
+        height: 5rem;
+        fill: $color-light-gray-alt-3;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
 
       &-user {
@@ -186,7 +197,7 @@
 
         &-user {
           padding: 1rem;
-          text-transform: capitalize;
+          // text-transform: capitalize;
 
           &-name {
             font-size: 1.8rem;

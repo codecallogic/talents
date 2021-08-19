@@ -1,21 +1,16 @@
-import SVG from '../files/SVGs'
-import Nav from '../components/nav/nav'
-import withMessages from './withMessages'
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react"
+import {API} from '../../config'
 import axios from 'axios'
-import {API} from '../config'
+import SVG from '../../files/SVGs'
 
-const Messages = ({userClient, messages, allExperts}) => {
-  // console.log(messages)
-  // console.log(allExperts)
-  // console.log(userClient)
+const Messages = ({userExpert, allClients}) => {
+  // console.log(userExpert)
+  // console.log(allClients)
 
   const [chatMessages, setChatMessages] = useState([])
   const [message, setMessage] = useState('')
-  const [expertName, setExpertName] = useState('')
-  const [expertPhoto, setExpertPhoto] = useState('')
-  const [expertID, setExpertID] = useState('')
-  const [expertEmail, setExpertEmail] = useState('')
+  const [clientName, setClientName] = useState('')
+  const [clientID, setClientID] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -48,25 +43,26 @@ const Messages = ({userClient, messages, allExperts}) => {
     e.preventDefault()
     setLoading(true)
     try {
-      const responseMessage = await axios.post(`${API}/message/expert-chat`, {name: userClient.username, message: message, expertName: expertName, expertPhoto: expertPhoto, expertID: expertID, expertEmail: expertEmail, clientID: userClient.id})
+      const responseMessage = await axios.post(`${API}/message/client-chat`, {name: userExpert.username, message: message, expertName: userExpert.username, expertID: userExpert.id, clientID: clientID})
       setMessage('')
       setLoading(false)
-      let allExperts
-      allExperts = responseMessage.data.reduce( (r, a) => {
-        r[a.expertID] = r[a.expertID] || [];
-        r[a.expertID].push(a);
+
+      // console.log(responseMessage.data)
+      
+      let allClients
+      allClients = responseMessage.data.reduce( (r, a) => {
+        r[a.clientID] = r[a.clientID] || [];
+        r[a.clientID].push(a);
         return r;
       }, Object.create(null));
 
-      if(allExperts){
-        allExperts = Object.keys(allExperts).map((key) => allExperts[key])
+      if(allClients){
+        allClients = Object.keys(allClients).map((key) => allClients[key])
 
-        allExperts.forEach((item) => {
-          if(item[0].expertID == expertID) return setChatMessages(item)
+        allClients.forEach((item) => {
+          if(item[0].clientID == clientID) return setChatMessages(item)
         })
       }
-      // window.location.reload()
-      // setMessage(responseMessage.data)
     } catch (error) {
       console.log(error)
       setLoading(false)
@@ -76,41 +72,40 @@ const Messages = ({userClient, messages, allExperts}) => {
 
   const getMessages = async (id) => {
     try {
-      const responseClientMessages = await axios.post(`${API}/auth/get-client-messages`, {id: userClient.id})
-      messages = responseClientMessages.data.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1)
+      const responseClientMessages = await axios.post(`${API}/auth/get-expert-messages`, {id: userExpert.id})
+      let messages = responseClientMessages.data.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1)
 
-      let allExperts
-      allExperts = messages.reduce( (r, a) => {
-        r[a.expertID] = r[a.expertID] || [];
-        r[a.expertID].push(a);
+      // console.log(messages)
+
+      let allClients
+      allClients = messages.reduce( (r, a) => {
+        r[a.clientID] = r[a.clientID] || [];
+        r[a.clientID].push(a);
         return r;
       }, Object.create(null));
 
-      if(allExperts){
-        allExperts = Object.keys(allExperts).map((key) => allExperts[key])
+      if(allClients){
+        allClients = Object.keys(allClients).map((key) => allClients[key])
 
-        allExperts.forEach((item) => {
-          setExpertEmail(item[item.length - 1].expertEmail)
-          if(item[0].expertID == id) return setChatMessages(item)
+        allClients.forEach((item) => {
+          if(item[0].clientID == id) return setChatMessages(item)
         })
       }
       
     } catch (error) {
-      if(error) error.response ? (errorFailedToGetData = error.response.data) : (errorFailedToGetData = 'Failed to get data')
+      if(error) error.response ? (setError(error.response.data)) : (setError('Failed to get data'))
     }
   }
-
+  
   return (
-    <>
-    <Nav changeStyle='primary-background' userClient={userClient}></Nav>
     <div className="messages">
       <div className="messages-list">
         <div className="messages-list-title">Messages</div>
-        {allExperts.length > 0 && allExperts.map((item, idx) => (
-           <div key={`chat-` + idx} className="messages-list-item" onClick={() => getMessages(item[0].expertID)}>
-             <img src={item[0].expertPhoto} alt="" />
+        {allClients.length > 0 && allClients.map((item, idx) => (
+           <div key={`chat-` + idx} className="messages-list-item" onClick={() => getMessages(item[0].clientID)}>
+             <SVG svg={'account-circle'}></SVG>
              <div className="messages-list-item-user">
-              <div className="messages-list-item-user-name">{item[item.length - 1].expertName}</div>
+              <div className="messages-list-item-user-name">{item[item.length - 1].name}</div>
               <div className="messages-list-item-user-message">{item[item.length - 1].message}</div>
               <div className="messages-list-item-user-message-date">{formatDate(item[item.length - 1].createdAt)}</div>
              </div>
@@ -132,7 +127,7 @@ const Messages = ({userClient, messages, allExperts}) => {
               </div>
             ))}
             <div className="messages-chatbox-container-input-container">
-              <textarea id="message" className="messages-chatbox-container-input" rows="auto" name="message" placeholder="Type a message" value={message} onChange={(e) => (setMessage(e.target.value), setError(''), setExpertName(chatMessages[0].expertName), setExpertPhoto(chatMessages[0].expertPhoto), setExpertID(chatMessages[0].expertID))}  onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = 'Type a message'} required></textarea>
+              <textarea id="message" className="messages-chatbox-container-input" rows="auto" name="message" placeholder="Type a message" value={message} onChange={(e) => (setMessage(e.target.value), setError(''), setClientName(chatMessages[0].name), setClientID(chatMessages[0].clientID))}  onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = 'Type a message'} required></textarea>
               <span className="messages-chatbox-container-input-container-svg" onClick={(e) => sendMessage(e)}>{loading ? <iframe src="https://giphy.com/embed/sSgvbe1m3n93G" width="30" height="30" frameBorder="0" className="giphy-loading-message" allowFullScreen></iframe> : <SVG svg={'send-message'}></SVG>}</span>
             </div>
           </div>
@@ -143,8 +138,7 @@ const Messages = ({userClient, messages, allExperts}) => {
         }
       </div>
     </div>
-    </>
   )
 }
 
-export default withMessages(Messages)
+export default Messages

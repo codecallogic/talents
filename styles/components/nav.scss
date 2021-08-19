@@ -136,6 +136,7 @@
         padding: 1rem 0rem;
         width: calc(100% + 20rem);
         background-color: white;
+        z-index: 100;
         display: none;
 
         &-item {

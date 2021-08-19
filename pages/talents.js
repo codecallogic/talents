@@ -8,6 +8,7 @@ import axios from 'axios'
 import {API} from '../config'
 
 const Talents = ({userClient, talents, talentsFiltered, filterTalents, signup, clientSignUp}) => {
+  // console.log(talents)
   // console.log(userClient)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -19,6 +20,7 @@ const Talents = ({userClient, talents, talentsFiltered, filterTalents, signup, c
   const [messageExpert, setMessageExpert] = useState('')
   const [expertName, setExpertName] = useState('')
   const [expertPhoto, setExpertPhoto] = useState('')
+  const [expertEmail, setExpertEmail] = useState('')
 
   useEffect(() => {
     if(signupModal == true) signup.password !== signup.confirm_password ? setError(`passwords don't match`) : null
@@ -100,7 +102,7 @@ const Talents = ({userClient, talents, talentsFiltered, filterTalents, signup, c
     e.preventDefault()
     setLoading(true)
     try {
-      const responseMessage = await axios.post(`${API}/message/expert`, {name: userClient.username, message: messageExpert, expertName: expertName, expertPhoto: expertPhoto, expertID: messageID, clientID: userClient.id})
+      const responseMessage = await axios.post(`${API}/message/expert`, {name: userClient.username, message: messageExpert, expertName: expertName, expertPhoto: expertPhoto, expertID: messageID, expertEmail: expertEmail, clientID: userClient.id})
       setMessageExpert('')
       setLoading(false)
       setMessage(responseMessage.data)
@@ -180,7 +182,7 @@ const Talents = ({userClient, talents, talentsFiltered, filterTalents, signup, c
                     <span key={idx} className="talents-collection-box-right-section-info-item">{item}</span>
                   )}</div>
                 </div>
-                <div onClick={() => userClient ? (setMessageModal(true), setMessageID(item._id), setExpertName(item.username), setExpertPhoto(item.photo_talent[0].location)) : setLoginModal(true)}><SVGs svg={'message'} classprop={'talents-collection-box-right-message'}></SVGs></div>
+                <div onClick={() => userClient ? (setMessageModal(true), setMessageID(item._id), setExpertName(item.username), setExpertPhoto(item.photo_talent[0].location), setExpertEmail(item.email)) : setLoginModal(true)}><SVGs svg={'message'} classprop={'talents-collection-box-right-message'}></SVGs></div>
                 <div className="talents-collection-box-right-expert">
                   <img src={item.photo[0].location} alt=""/>
                   <span>{item.username}</span>

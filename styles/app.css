@@ -355,6 +355,7 @@ body {
         padding: 1rem 0rem;
         width: calc(100% + 20rem);
         background-color: white;
+        z-index: 100;
         display: none; }
         .nav-menu-dropdown-container-item {
           padding: 1rem 2rem;
@@ -564,7 +565,8 @@ body {
       box-shadow: 0.2rem 0.8rem 1rem 0.4rem rgba(0, 0, 0, 0.4);
       width: 30rem;
       padding: 2rem;
-      border-radius: 1.2rem; }
+      border-radius: 1.2rem;
+      margin-right: 2rem; }
       .experts-cards-item-el svg {
         width: 3rem;
         height: 3rem;
@@ -782,7 +784,8 @@ body {
             text-transform: capitalize; }
 
 .messages {
-  display: flex; }
+  display: flex;
+  width: 100%; }
   @media only screen and (max-width: 768px) {
     .messages {
       display: block; } }
@@ -818,6 +821,12 @@ body {
         height: 5rem;
         object-fit: cover;
         margin-right: 1rem; }
+      .messages-list-item svg {
+        width: 5rem;
+        height: 5rem;
+        fill: #5e5e5e; }
+        .messages-list-item svg:hover {
+          cursor: pointer; }
       .messages-list-item-user {
         padding: 1rem;
         text-transform: capitalize; }
@@ -915,8 +924,7 @@ body {
           margin-right: 1rem;
           fill: #5e5e5e; }
         .messages-chatbox-container-item-user {
-          padding: 1rem;
-          text-transform: capitalize; }
+          padding: 1rem; }
           .messages-chatbox-container-item-user-name {
             font-size: 1.8rem; }
           .messages-chatbox-container-item-user-message {

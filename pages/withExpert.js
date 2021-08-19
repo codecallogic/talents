@@ -30,12 +30,12 @@ const withUser = Page => {
       const token = getToken(context.req)
       let errorFailedToLoginUser = null
 
-      let newUser = null
+      let userExpert = null
       let newToken = null
-      if(user){newUser = user.split('=')[1]}
+      if(user){userExpert = user.split('=')[1]}
       if(token){newToken = token.split('=')[1]}
 
-      // console.log(newUser)
+      // console.log(userExpert)
       // console.log(newToken)
 
       if(newToken !== null){
@@ -47,15 +47,39 @@ const withUser = Page => {
             }
           })
           // console.log(responseUser.data)
-          newUser = responseUser.data
+          userExpert = responseUser.data
         } catch (error) {
-          newUser = null
+          userExpert = null
           // console.log(error)
           if(error) error.response ? (errorFailedToLoginUser = error.response.data) : (errorFailedToLoginUser = 'Failed to login user')
         }
       }
 
-      if(!newUser){
+      let messages = null
+      let allClients = []
+      
+      if(userExpert){
+        try {
+          const responseExpertMessages = await axios.post(`${API}/auth/get-expert-messages`, userExpert)
+          // console.log(responseExpertMessages.data)
+          messages = responseExpertMessages.data.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1)
+          allClients = messages.reduce( (r, a) => {
+            r[a.clientID] = r[a.clientID] || [];
+            r[a.clientID].push(a);
+            return r;
+          }, Object.create(null));
+        } catch (error) {
+          if(error) error.response ? (errorFailedToGetData = error.response.data) : (errorFailedToGetData = 'Failed to get data')
+        }
+      }
+
+      if(allClients){
+        allClients = Object.keys(allClients).map((key) => allClients[key])
+      }
+
+      console.log(allClients)
+      
+      if(!userExpert){
         context.res.writeHead(307, {
           Location: '/expert-login'
         });
@@ -63,8 +87,9 @@ const withUser = Page => {
       }else{
         return {
             ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),
-            newUser,
-            newToken
+            userExpert,
+            newToken,
+            allClients
         }
       }
     }
