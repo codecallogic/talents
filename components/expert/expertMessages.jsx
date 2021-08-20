@@ -43,7 +43,7 @@ const Messages = ({userExpert, allClients}) => {
     e.preventDefault()
     setLoading(true)
     try {
-      const responseMessage = await axios.post(`${API}/message/client-chat`, {name: userExpert.username, message: message, expertName: userExpert.username, expertID: userExpert.id, clientID: clientID})
+      const responseMessage = await axios.post(`${API}/message/client-chat`, {name: userExpert.username, message: message, expertName: userExpert.username, expertID: userExpert.id, expertEmail: userExpert.email, clientID: clientID})
       setMessage('')
       setLoading(false)
 
@@ -102,7 +102,7 @@ const Messages = ({userExpert, allClients}) => {
       <div className="messages-list">
         <div className="messages-list-title">Messages</div>
         {allClients.length > 0 && allClients.map((item, idx) => (
-           <div key={`chat-` + idx} className="messages-list-item" onClick={() => getMessages(item[0].clientID)}>
+           <div key={`chat-` + idx} className="messages-list-item" onClick={() => (getMessages(item[0].clientID), document.getElementById("chatbox").scrollIntoView())}>
              <SVG svg={'account-circle'}></SVG>
              <div className="messages-list-item-user">
               <div className="messages-list-item-user-name">{item[item.length - 1].name}</div>
@@ -113,7 +113,7 @@ const Messages = ({userExpert, allClients}) => {
         ))
         }
       </div>
-      <div className="messages-chatbox">
+      <div id="chatbox" className="messages-chatbox">
         {chatMessages.length > 0 ? 
           <div className="messages-chatbox-container">
             {chatMessages.map((item, idx) => (

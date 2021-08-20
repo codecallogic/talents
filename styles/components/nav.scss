@@ -63,6 +63,12 @@
         height: 2.5rem;
         fill: white;
       }
+
+      &-host {
+        @media only screen and (max-width: $small) {
+          display: none;
+        }
+      }
     }
 
     &-dropdown {
@@ -147,6 +153,12 @@
           &:hover {
             cursor: pointer;
             background-color: $color-light-gray-alt-2;
+          }
+
+          &-host {
+            @media only screen and (min-width: $small) {
+              display: none;
+            }
           }
         }
       }

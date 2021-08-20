@@ -33,7 +33,7 @@ const Nav = ({userExpert, userClient, changeStyle}) => {
     <div className={`nav ` + (navSticky ? ` nav-sticky` : null) + (changeStyle ? ` ${changeStyle}` : null)}>
       <div className="nav-logo" onClick={() => window.location.href = '/'}>Talent</div>
       <div className="nav-menu">
-        <a href="/expert" className="nav-menu-item">{userExpert ? null : 'Become a host'}</a>
+        <a href="/expert" className="nav-menu-item nav-menu-item-host">{userExpert ? null : 'Become a host'}</a>
         {userClient && <a className="nav-menu-item" onClick={() => window.location.href = '/messages'}><SVG svg={'inbox'}></SVG></a>}
         <div className={`nav-menu-dropdown `}>
           <label className="nav-menu-dropdown-label" htmlFor="nav-dropdown"><span className="nav-menu-dropdown-label-icon">&nbsp;</span><SVG svg={'account-circle'}></SVG></label>
@@ -43,6 +43,7 @@ const Nav = ({userExpert, userClient, changeStyle}) => {
             {userExpert ? <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = '/experts'}>Account</div> : null }
             {userExpert ? <div className="nav-menu-dropdown-container-item" onClick={() => logoutExpert()}>Logout</div> : null }
             <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = "/talents"}>Talents</div>
+            {userExpert ? null : <div className="nav-menu-dropdown-container-item nav-menu-dropdown-container-item-host" onClick={() => window.location.href = "/expert"}>Become a host</div>}
           </div>
         </div>
       </div>

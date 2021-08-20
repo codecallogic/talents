@@ -107,7 +107,8 @@ const Messages = ({userClient, messages, allExperts}) => {
       <div className="messages-list">
         <div className="messages-list-title">Messages</div>
         {allExperts.length > 0 && allExperts.map((item, idx) => (
-           <div key={`chat-` + idx} className="messages-list-item" onClick={() => getMessages(item[0].expertID)}>
+          // document.getElementById("chatbox").scrollIntoView()
+           <div key={`chat-` + idx} className="messages-list-item" onClick={() => (getMessages(item[0].expertID), typeof window !== 'undefined' ? window.innerWidth < 601 ? document.getElementById("chatbox").scrollIntoView() : null : null)}>
              <img src={item[0].expertPhoto} alt="" />
              <div className="messages-list-item-user">
               <div className="messages-list-item-user-name">{item[item.length - 1].expertName}</div>
@@ -118,7 +119,7 @@ const Messages = ({userClient, messages, allExperts}) => {
         ))
         }
       </div>
-      <div className="messages-chatbox">
+      <div id="chatbox" className="messages-chatbox">
         {chatMessages.length > 0 ? 
           <div className="messages-chatbox-container">
             {chatMessages.map((item, idx) => (
