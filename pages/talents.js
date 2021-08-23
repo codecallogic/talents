@@ -155,40 +155,44 @@ const Talents = ({userClient, talents, talentsFiltered, filterTalents, signup, c
       </div>
       <div className="talents-collection">
           {talents && talents.filter((item) => handleFilter(item)).map((item, idx) => (
-            <div key={idx} className="talents-collection-box">
-              <div className="talents-collection-box-left">
-                {item.photo_talent ? <img src={item.photo_talent[0].location} alt="" /> : <img src="https://dummyimage.com/600x400/000/ffffff.png&text=No+image+added" alt="" />}
+            item.photo_talent.length > 0 && item.description && item.activity.length > 0 
+              ?
+              <div key={idx} className="talents-collection-box">
+                <div className="talents-collection-box-left">
+                  {item.photo_talent.length > 0 ? <img src={item.photo_talent[0].location} alt="" /> : <img src="https://dummyimage.com/600x400/000/ffffff.png&text=No+image+added" alt="" />}
+                </div>
+                <div className="talents-collection-box-right">
+                  <div className="talents-collection-box-right-section">
+                    <div className="talents-collection-box-right-section-title">About Me</div>
+                    <div className="talents-collection-box-right-section-info">{item.description}</div>
+                  </div>
+                  <div className="talents-collection-box-right-section">
+                    <div className="talents-collection-box-right-section-title">Activity</div>
+                    <div className="talents-collection-box-right-section-info">{item.activity.length > 0 && item.activity.slice(0, 4).map((item, idx, array) => 
+                      <span key={idx} className="talents-collection-box-right-section-info-item">{item}{idx < array.length - 1 ? ', ' : ''}</span>
+                    )}</div>
+                  </div>
+                  <div className="talents-collection-box-right-section">
+                    <div className="talents-collection-box-right-section-title">Specialty</div>
+                    <div className="talents-collection-box-right-section-info">{item.specialty.length > 0 && item.specialty.slice(0, 4).map((item, idx, array) => 
+                      <span key={idx} className="talents-collection-box-right-section-info-item">{item}{idx < array.length - 1 ? ', ' : ''}</span>
+                    )}</div>
+                  </div>
+                  <div className="talents-collection-box-right-section">
+                    <div className="talents-collection-box-right-section-title">Location</div>
+                    <div className="talents-collection-box-right-section-info">{item.location.length > 0 && item.location.slice(0, 4).map((el, idx, array) => 
+                      <span key={idx} className="talents-collection-box-right-section-info-item">{el.split(',')[0]}{idx < array.length - 1 ? ', ' : ''}</span>
+                    )}</div>
+                  </div>
+                  <div onClick={() => userClient ? (setMessageModal(true), setMessageID(item._id), setExpertName(item.username), setExpertPhoto(item.photo_talent[0].location), setExpertEmail(item.email)) : setLoginModal(true)}><SVGs svg={'message'} classprop={'talents-collection-box-right-message'}></SVGs></div>
+                  <div className="talents-collection-box-right-expert">
+                    {item.photo[0] ? <img src={item.photo[0].location} alt=""/> : <SVGs svg={'account-circle'} ></SVGs>}
+                    <span>{item.username}</span>
+                  </div>
+                </div>
               </div>
-              <div className="talents-collection-box-right">
-                <div className="talents-collection-box-right-section">
-                  <div className="talents-collection-box-right-section-title">About Me</div>
-                  <div className="talents-collection-box-right-section-info">{item.description}</div>
-                </div>
-                <div className="talents-collection-box-right-section">
-                  <div className="talents-collection-box-right-section-title">Activity</div>
-                  <div className="talents-collection-box-right-section-info">{item.activity.length > 0 && item.activity.slice(0, 4).map((item, idx, array) => 
-                    <span key={idx} className="talents-collection-box-right-section-info-item">{item}{idx < array.length - 1 ? ', ' : ''}</span>
-                  )}</div>
-                </div>
-                <div className="talents-collection-box-right-section">
-                  <div className="talents-collection-box-right-section-title">Specialty</div>
-                  <div className="talents-collection-box-right-section-info">{item.specialty.length > 0 && item.specialty.slice(0, 4).map((item, idx, array) => 
-                    <span key={idx} className="talents-collection-box-right-section-info-item">{item}{idx < array.length - 1 ? ', ' : ''}</span>
-                  )}</div>
-                </div>
-                <div className="talents-collection-box-right-section">
-                  <div className="talents-collection-box-right-section-title">Location</div>
-                  <div className="talents-collection-box-right-section-info">{item.location.length > 0 && item.location.slice(0, 4).map((el, idx, array) => 
-                    <span key={idx} className="talents-collection-box-right-section-info-item">{el.split(',')[0]}{idx < array.length - 1 ? ', ' : ''}</span>
-                  )}</div>
-                </div>
-                <div onClick={() => userClient ? (setMessageModal(true), setMessageID(item._id), setExpertName(item.username), setExpertPhoto(item.photo_talent[0].location), setExpertEmail(item.email)) : setLoginModal(true)}><SVGs svg={'message'} classprop={'talents-collection-box-right-message'}></SVGs></div>
-                <div className="talents-collection-box-right-expert">
-                  {item.photo[0] ? <img src={item.photo[0].location} alt=""/> : <SVGs svg={'account-circle'} ></SVGs>}
-                  <span>{item.username}</span>
-                </div>
-              </div>
-            </div>
+            :
+            null 
           ))
           }
       </div>
