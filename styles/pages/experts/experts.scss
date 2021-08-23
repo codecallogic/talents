@@ -34,6 +34,7 @@
 
   &-cards {
     display: flex;
+    flex-wrap: wrap;
     margin: 2rem 0;
 
     &-item {
@@ -42,6 +43,7 @@
       padding: 2rem;
       border-radius: 1.2rem;
       margin-right: 2rem;
+      margin-bottom: 2rem;
 
       &-el {
         svg {

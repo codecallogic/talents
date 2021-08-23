@@ -155,7 +155,7 @@ const Talents = ({userClient, talents, talentsFiltered, filterTalents, signup, c
       </div>
       <div className="talents-collection">
           {talents && talents.filter((item) => handleFilter(item)).map((item, idx) => (
-            item.photo_talent.length > 0 && item.description && item.activity.length > 0 
+            item.description && item.activity.length > 0 
               ?
               <div key={idx} className="talents-collection-box">
                 <div className="talents-collection-box-left">
