@@ -184,7 +184,7 @@ const Talents = ({userClient, talents, talentsFiltered, filterTalents, signup, c
                       <span key={idx} className="talents-collection-box-right-section-info-item">{el.split(',')[0]}{idx < array.length - 1 ? ', ' : ''}</span>
                     )}</div>
                   </div>
-                  <div onClick={() => userClient ? (setMessageModal(true), setMessageID(item._id), setExpertName(item.username), setExpertPhoto(item.photo_talent[0].location), setExpertEmail(item.email)) : setLoginModal(true)}><SVGs svg={'message'} classprop={'talents-collection-box-right-message'}></SVGs></div>
+                  <div onClick={() => userClient ? (setMessageModal(true), setMessageID(item._id), setExpertName(item.username), setExpertPhoto(item.photo[0].location), setExpertEmail(item.email)) : setLoginModal(true)}><SVGs svg={'message'} classprop={'talents-collection-box-right-message'}></SVGs></div>
                   <div className="talents-collection-box-right-expert">
                     {item.photo[0] ? <img src={item.photo[0].location} alt=""/> : <SVGs svg={'account-circle'} ></SVGs>}
                     <span>{item.username}</span>

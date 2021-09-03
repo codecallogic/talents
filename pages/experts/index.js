@@ -12,12 +12,16 @@ import Messages from '../../components/expert/expertMessages'
 
 // TODO: Modify invoice to include client user data model and CRUD, client sign up email verification
 
-const ExpertAccount = ({dash, profile, changeView, userExpert, newToken, allClients, createExpertProfile}) => {
+const ExpertAccount = ({params, dash, profile, changeView, userExpert, newToken, allClients, createExpertProfile}) => {
   // console.log(userExpert)
   const router = useRouter()
   const [input_dropdown, setInputDropdown] = useState('')
   const [loading_profile_image, setLoadingProfileImage] = useState(false)
   const [loading_talent_image, setLoadingTalentImage] = useState(false)
+
+  useEffect(() => {
+    if(params) params.change ? changeView(params.change) : null
+  }, [router.query.change])
 
   useEffect(() => {
     if(router.query.view) router.query.view == 'profile' ? changeView('profile') : null
@@ -235,6 +239,12 @@ const mapDispatchToProps = dispatch => {
   return {
     changeView: (view) => dispatch({type: 'DASH', value: view}),
     createExpertProfile: (type, name, value) => dispatch({type: type, name: name, value: value})
+  }
+}
+
+ExpertAccount.getInitialProps = ({query}) => {
+  return {
+    params: query
   }
 }
 

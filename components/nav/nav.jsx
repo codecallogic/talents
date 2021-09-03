@@ -35,6 +35,7 @@ const Nav = ({userExpert, userClient, changeStyle}) => {
       <div className="nav-menu">
         <a href="/expert" className="nav-menu-item nav-menu-item-host">{userExpert ? null : 'Become a host'}</a>
         {userClient && <a className="nav-menu-item" onClick={() => window.location.href = '/messages'}><SVG svg={'inbox'}></SVG></a>}
+        {userExpert && <a className="nav-menu-item" onClick={() => window.location.href = '/experts?change=messages'}><SVG svg={'inbox'}></SVG></a>}
         <div className={`nav-menu-dropdown `}>
           <label className="nav-menu-dropdown-label" htmlFor="nav-dropdown"><span className="nav-menu-dropdown-label-icon">&nbsp;</span><SVG svg={'account-circle'}></SVG></label>
           <input className="nav-menu-dropdown-input" type="checkbox" name="nav-dropdown" id="nav-dropdown" />

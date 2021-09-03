@@ -806,8 +806,8 @@ body {
       display: block; } }
   .messages-list {
     width: 25%;
-    min-height: 100vh;
-    max-height: max-content;
+    min-height: 100rem;
+    height: 100%;
     border-right: 0.1rem solid #dfdfdf; }
     @media only screen and (max-width: 768px) {
       .messages-list {
@@ -880,7 +880,8 @@ body {
         border-radius: 1.2rem;
         outline: none;
         border: none;
-        resize: none; }
+        resize: none;
+        font-family: inherit; }
         .messages-chatbox-container-input::-webkit-scrollbar {
           width: 0.01rem;
           height: 0.01rem; }

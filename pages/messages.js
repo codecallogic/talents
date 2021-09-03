@@ -48,7 +48,7 @@ const Messages = ({userClient, messages, allExperts}) => {
     e.preventDefault()
     setLoading(true)
     try {
-      const responseMessage = await axios.post(`${API}/message/expert-chat`, {name: userClient.username, message: message, expertName: expertName, expertPhoto: expertPhoto, expertID: expertID, expertEmail: expertEmail, clientID: userClient.id})
+      const responseMessage = await axios.post(`${API}/message/expert-chat`, {name: userClient.username, message: message, expertName: expertName, expertPhoto: expertPhoto, expertID: expertID, expertEmail: expertEmail, clientID: userClient.id, sender: 'client'})
       setMessage('')
       setLoading(false)
       let allExperts
@@ -124,7 +124,7 @@ const Messages = ({userClient, messages, allExperts}) => {
           <div className="messages-chatbox-container">
             {chatMessages.map((item, idx) => (
               <div key={idx} className="messages-chatbox-container-item">
-                <SVG svg={'account-circle'}></SVG>
+                {item.sender == 'expert' ? <img src={item.expertPhoto}></img> : <SVG svg={'account-circle'}></SVG>}
                 <div className="messages-chatbox-container-item-user">
                   <div className="messages-chatbox-container-item-user-name">{item.name}</div>
                   <div className="messages-chatbox-container-item-user-message">{item.message}</div>
