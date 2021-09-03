@@ -102,7 +102,8 @@ const Messages = ({userExpert, allClients}) => {
       <div className="messages-list">
         <div className="messages-list-title">Messages</div>
         {allClients.length > 0 && allClients.map((item, idx) => (
-           <div key={`chat-` + idx} className="messages-list-item" onClick={() => (getMessages(item[0].clientID), document.getElementById("chatbox").scrollIntoView())}>
+          // document.getElementById("chatbox").scrollIntoView()
+           <div key={`chat-` + idx} className="messages-list-item" onClick={() => (getMessages(item[0].clientID))}>
              <SVG svg={'account-circle'}></SVG>
              <div className="messages-list-item-user">
               <div className="messages-list-item-user-name">{item[item.length - 1].name}</div>
