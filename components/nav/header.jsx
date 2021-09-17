@@ -31,7 +31,6 @@ const Header = ({userExpert, clients, preloadNotifications}) => {
         newArray.push(newClients[key])
       }
 
-      setAllClients(newArray)
       newArray.map((item) => {
         item.filter((e) => { return e.readExpert === false; }).length > 0 
         ? 
