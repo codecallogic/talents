@@ -17,6 +17,8 @@ const withUser = Page => {
 
       let userExpert = null
       let newToken = null
+      let errorFailedToLoginUser  = null
+      let errorFailedToGetData = null
       if(user){userExpert = user.split('=')[1]}
       if(token){newToken = token.split('=')[1]}
 
@@ -40,6 +42,40 @@ const withUser = Page => {
         }
       }
 
+      let messages = null
+      let clients = []
+
+      if(userExpert){
+        try {
+          const responseExpertMessages = await axios.post(`${API}/auth/get-expert-messages-init`, userExpert)
+          // console.log(responseExpertMessages.data)
+          messages = responseExpertMessages.data.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1)
+          clients = messages.reduce( (r, a) => {
+            r[a.clientID] = r[a.clientID] || [];
+            r[a.clientID].push(a);
+            return r;
+          }, Object.create(null));
+        } catch (error) {
+          console.log(error)
+          if(error) error.response ? (errorFailedToGetData = error.response.data) : (errorFailedToGetData = 'Failed to get data')
+        }
+      }
+
+      if(clients){
+        clients = Object.keys(clients).map((key) => clients[key])
+      }
+
+      let notifications = null
+
+      if(clients){
+        notifications
+        clients.map((item) => {
+          item.filter((e) => { return e.readExpert === false; }).length > 0 
+          ? 
+          (notifications = item.filter((e) => { return e.readExpert === false; }).length)
+          : null
+      })}  
+
       if(!userExpert){
         return {
           ...(Page.getInitialProps ? await Page.getInitialProps(context) : {})
@@ -48,6 +84,8 @@ const withUser = Page => {
         return {
             ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),
             userExpert,
+            clients,
+            notifications
         }
       }
     }

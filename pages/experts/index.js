@@ -5,22 +5,63 @@ import {connect} from 'react-redux'
 import {nanoid} from 'nanoid'
 import withExpert from '../withExpert'
 import {activities, specialties, locations} from '../../files/expertTalents'
-import {API} from '../../config'
+import {API, SOCKET} from '../../config'
 import {useRouter} from 'next/router'
 import axios from 'axios'
 import Messages from '../../components/expert/expertMessages'
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import io from "socket.io-client";
+
+const socket = io.connect(SOCKET, {transports: ['websocket', 'polling', 'flashsocket']});
+
 
 // TODO: Modify invoice to include client user data model and CRUD, client sign up email verification
 
-const ExpertAccount = ({params, dash, profile, changeView, userExpert, newToken, allClients, createExpertProfile}) => {
+const ExpertAccount = ({params, dash, profile, changeView, userExpert, newToken, clients, preloadNotifications, createExpertProfile}) => {
   // console.log(userExpert)
+  // console.log(clients)
   const router = useRouter()
   const [input_dropdown, setInputDropdown] = useState('')
   const [loading_profile_image, setLoadingProfileImage] = useState(false)
   const [loading_talent_image, setLoadingTalentImage] = useState(false)
+  const [notifications, setNotifications] = useState(preloadNotifications ? preloadNotifications : null)
+  const [allClients, setAllClients] = useState(clients)
 
   useEffect(() => {
     if(params) params.change ? changeView(params.change) : null
+    socket.on(userExpert.id, (messages) => {
+      let newMessages = null
+      let newClients = []
+
+      newMessages = messages.messages.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1)
+
+      newClients = newMessages.reduce( (r, a) => {
+        r[a.clientID] = r[a.clientID] || [];
+        r[a.clientID].push(a);
+        return r;
+      }, Object.create(null));
+
+      let newArray = []
+
+      for(let key in newClients){
+        newArray.push(newClients[key])
+      }
+
+      setAllClients(newArray)
+      let totalNotifications = null
+      newArray.map((item) => {
+        item.filter((e) => { return e.readExpert === false; }).length > 0 
+        ? 
+        (totalNotifications += item.filter((e) => { return e.readExpert === false; }).length)
+        : null
+      })
+      setNotifications(totalNotifications)
+      return NotificationManager.info(`New message from ${messages.clientName}`)
+      
+
+      // if(messages) 
+    })
   }, [router.query.change])
 
   useEffect(() => {
@@ -89,15 +130,20 @@ const ExpertAccount = ({params, dash, profile, changeView, userExpert, newToken,
       // console.log(responseProfile.data)
       window.location.href = `/experts?view=profile`
     } catch (error) {
-      console.log(error.response)
+      console.log('Error', error.response)
       // if(error) window.location.href = `/experts?view=profile`
     }
+  }
+
+  const updateNotifications = (total) => {
+    setNotifications(total)
   }
   
   return (
     <>
-    <Nav changeStyle='primary-background' userExpert={userExpert}></Nav>
+    <Nav changeStyle='primary-background' userExpert={userExpert} notifications={notifications}></Nav>
     <div className="experts">
+      <NotificationContainer/>
       {dash.view == 'main' &&
       <div className="experts-container">
         <div className="experts-title">Account</div>
@@ -221,7 +267,7 @@ const ExpertAccount = ({params, dash, profile, changeView, userExpert, newToken,
       </div>
       }
       {dash.view == 'messages' &&
-        <Messages userExpert={userExpert} allClients={allClients}></Messages>
+        <Messages userExpert={userExpert} clients={allClients} updateNotifications={updateNotifications}></Messages>
       }
     </div>
     </>

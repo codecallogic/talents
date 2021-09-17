@@ -58,14 +58,14 @@ const withUser = Page => {
       }
 
       let messages = null
-      let allExperts = []
+      let experts = []
       
       if(userClient){
         try {
-          const responseClientMessages = await axios.post(`${API}/auth/get-client-messages`, userClient)
+          const responseClientMessages = await axios.post(`${API}/auth/get-client-messages-init`, userClient)
           console.log(responseClientMessages.data)
           messages = responseClientMessages.data.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1)
-          allExperts = messages.reduce( (r, a) => {
+          experts = messages.reduce( (r, a) => {
             r[a.expertID] = r[a.expertID] || [];
             r[a.expertID].push(a);
             return r;
@@ -75,9 +75,20 @@ const withUser = Page => {
         }
       }
 
-      if(allExperts){
-        allExperts = Object.keys(allExperts).map((key) => allExperts[key])
+      if(experts){
+        experts = Object.keys(experts).map((key) => experts[key])
       }
+
+      let preloadNotifications = null
+
+      if(experts){
+        preloadNotifications
+        experts.map((item) => {
+          item.filter((e) => { return e.readClient === false; }).length > 0 
+          ? 
+          (preloadNotifications += item.filter((e) => { return e.readClient === false; }).length)
+          : null
+      })}
 
       if(!userClient){
         context.res.writeHead(307, {
@@ -89,7 +100,8 @@ const withUser = Page => {
           ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),
           userClient,
           messages,
-          allExperts
+          experts,
+          preloadNotifications
         }
       }
     }

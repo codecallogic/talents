@@ -4,7 +4,7 @@ import { useScrollPosition } from '@n8tb1t/use-scroll-position'
 import axios from 'axios'
 import {API} from '../../config'
 
-const Nav = ({userExpert, userClient, changeStyle}) => {
+const Nav = ({userExpert, userClient, changeStyle, notifications}) => {
   const [navSticky, setNavSticky] = useState(false)
   // console.log(userClient)
   useScrollPosition(({prevPos, currPos}) => {
@@ -34,8 +34,14 @@ const Nav = ({userExpert, userClient, changeStyle}) => {
       <div className="nav-logo" onClick={() => window.location.href = '/'}>Talent</div>
       <div className="nav-menu">
         <a href="/expert" className="nav-menu-item nav-menu-item-host">{userExpert ? null : 'Become a host'}</a>
-        {userClient && <a className="nav-menu-item" onClick={() => window.location.href = '/messages'}><SVG svg={'inbox'}></SVG></a>}
-        {userExpert && <a className="nav-menu-item" onClick={() => window.location.href = '/experts?change=messages'}><SVG svg={'inbox'}></SVG></a>}
+        {userClient && <a className="nav-menu-item" onClick={() => window.location.href = '/messages'}>
+          <SVG svg={'inbox'}></SVG>
+          {notifications ? <span className="nav-menu-item-notifcations">{notifications}</span> : null}
+          </a>}
+        {userExpert && <a className="nav-menu-item" onClick={() => window.location.href = '/experts?change=messages'}>
+          <SVG svg={'inbox'}></SVG>
+          {notifications ? <span className="nav-menu-item-notifcations">{notifications}</span> : null}
+          </a>}
         <div className={`nav-menu-dropdown `}>
           <label className="nav-menu-dropdown-label" htmlFor="nav-dropdown"><span className="nav-menu-dropdown-label-icon">&nbsp;</span><SVG svg={'account-circle'}></SVG></label>
           <input className="nav-menu-dropdown-input" type="checkbox" name="nav-dropdown" id="nav-dropdown" />

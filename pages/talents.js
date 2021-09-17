@@ -5,7 +5,10 @@ import SVGs from '../files/SVGs'
 import withTalents from './withTalents'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {API} from '../config'
+import {API, SOCKET} from '../config'
+import io from "socket.io-client";
+
+const socket = io.connect(SOCKET, {transports: ['websocket', 'polling', 'flashsocket']});
 
 const Talents = ({userClient, talents, talentsFiltered, filterTalents, signup, clientSignUp}) => {
   // console.log(talents)
@@ -101,16 +104,22 @@ const Talents = ({userClient, talents, talentsFiltered, filterTalents, signup, c
   const sendMessage = async (e) => {
     e.preventDefault()
     setLoading(true)
-    try {
-      const responseMessage = await axios.post(`${API}/message/expert`, {name: userClient.username, message: messageExpert, expertName: expertName, expertPhoto: expertPhoto, expertID: messageID, expertEmail: expertEmail, clientID: userClient.id})
+    socket.emit('client-message-expert', {name: userClient.username, message: messageExpert, clientName: userClient.username,expertName: expertName, expertPhoto: expertPhoto, expertID: messageID, expertEmail: expertEmail, clientID: userClient.id, sender: 'client', readClient: true}, (messages) => {
       setMessageExpert('')
       setLoading(false)
-      setMessage(responseMessage.data)
-    } catch (error) {
-      console.log(error)
-      setLoading(false)
-      if(error) return error.response ? setError(error.response.data) : setError('Error submitting form')
-    }
+      setMessage(`Message sent to ${expertName}`)
+    })
+    // setLoading(true)
+    // try {
+    //   const responseMessage = await axios.post(`${API}/message/expert`, {name: userClient.username, message: messageExpert, expertName: expertName, expertPhoto: expertPhoto, expertID: messageID, expertEmail: expertEmail, clientID: userClient.id})
+    //   setMessageExpert('')
+    //   setLoading(false)
+    //   setMessage(responseMessage.data)
+    // } catch (error) {
+    //   console.log(error)
+    //   setLoading(false)
+    //   if(error) return error.response ? setError(error.response.data) : setError('Error submitting form')
+    // }
   }
   
   return (

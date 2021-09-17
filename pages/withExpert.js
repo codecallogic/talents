@@ -28,10 +28,10 @@ const withUser = Page => {
       // GET COOKIES
       const user = getUser(context.req)
       const token = getToken(context.req)
-      let errorFailedToLoginUser = null
-
       let userExpert = null
       let newToken = null
+      let errorFailedToGetData = null
+      let errorFailedToLoginUser = null
       if(user){userExpert = user.split('=')[1]}
       if(token){newToken = token.split('=')[1]}
 
@@ -56,28 +56,35 @@ const withUser = Page => {
       }
 
       let messages = null
-      let allClients = []
+      let clients = []
       
       if(userExpert){
         try {
-          const responseExpertMessages = await axios.post(`${API}/auth/get-expert-messages`, userExpert)
-          // console.log(responseExpertMessages.data)
-          messages = responseExpertMessages.data.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1)
-          allClients = messages.reduce( (r, a) => {
+          const responseExpertMessages = await axios.post(`${API}/auth/get-expert-messages-init`, userExpert)
+          clients = responseExpertMessages.data.reduce( (r, a) => {
             r[a.clientID] = r[a.clientID] || [];
             r[a.clientID].push(a);
             return r;
           }, Object.create(null));
         } catch (error) {
+          console.log(error)
           if(error) error.response ? (errorFailedToGetData = error.response.data) : (errorFailedToGetData = 'Failed to get data')
         }
       }
-
-      if(allClients){
-        allClients = Object.keys(allClients).map((key) => allClients[key])
+      if(clients){
+        clients = Object.keys(clients).map((key) => clients[key])
       }
 
-      console.log(allClients)
+      let preloadNotifications = null
+
+      if(clients){
+        preloadNotifications
+        clients.map((item) => {
+          item.filter((e) => { return e.readExpert === false; }).length > 0 
+          ? 
+          (preloadNotifications += item.filter((e) => { return e.readExpert === false; }).length)
+          : null
+      })}  
       
       if(!userExpert){
         context.res.writeHead(307, {
@@ -89,7 +96,8 @@ const withUser = Page => {
             ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),
             userExpert,
             newToken,
-            allClients
+            clients,
+            preloadNotifications
         }
       }
     }
