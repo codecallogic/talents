@@ -16,6 +16,7 @@ const Talents = ({userClient, talents, experts, preloadNotifications, talentsFil
   // console.log(talents)
   // console.log(userClient)
   // console.log(experts)
+  console.log('Testing')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
