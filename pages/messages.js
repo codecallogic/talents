@@ -49,8 +49,8 @@ const Messages = ({userClient, messages, experts, preloadNotifications}) => {
       for(let key in newExperts){
         newArray.push(newExperts[key])
       }
-      console.log(window.localStorage.getItem('currentChatIdExpert'))
-      console.log(newArray)
+      // console.log(window.localStorage.getItem('currentChatIdExpert'))
+      // console.log(newArray)
 
       newArray.forEach((item) => {
         item.forEach((data) => {

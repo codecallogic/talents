@@ -4,7 +4,7 @@ import { useScrollPosition } from '@n8tb1t/use-scroll-position'
 import axios from 'axios'
 import {API} from '../../config'
 
-const Nav = ({userExpert, userClient, changeStyle, notifications}) => {
+const Nav = ({userExpert, userClient, changeStyle, notifications, openLoginModal}) => {
   const [navSticky, setNavSticky] = useState(false)
   // console.log(userClient)
   useScrollPosition(({prevPos, currPos}) => {
@@ -46,7 +46,8 @@ const Nav = ({userExpert, userClient, changeStyle, notifications}) => {
           <label className="nav-menu-dropdown-label" htmlFor="nav-dropdown"><span className="nav-menu-dropdown-label-icon">&nbsp;</span><SVG svg={'account-circle'}></SVG></label>
           <input className="nav-menu-dropdown-input" type="checkbox" name="nav-dropdown" id="nav-dropdown" />
           <div className={`nav-menu-dropdown-container ` + (changeStyle ? ` ${changeStyle}` : null)}>
-            {userExpert ? null : userClient ? <div className="nav-menu-dropdown-container-item" onClick={() => logoutClient()}>Logout</div> : <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = '/expert-login'}>Login</div>}
+            {userExpert ? null : userClient ? <div className="nav-menu-dropdown-container-item" onClick={() => logoutClient()}>Logout</div> : <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = '/expert-login'}>Expert Login</div>}
+            {!userClient ? <div className="nav-menu-dropdown-container-item" onClick={() => (openLoginModal(), document.getElementById('nav-dropdown').checked = false)}>User Login</div> : null}
             {userExpert ? <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = '/experts'}>Account</div> : null }
             {userExpert ? <div className="nav-menu-dropdown-container-item" onClick={() => logoutExpert()}>Logout</div> : null }
             <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = "/talents"}>Talents</div>

@@ -66,6 +66,39 @@ const withUser = Page => {
         if(error) error.response ? (errorFailedToGetData = error.response.data) : (errorFailedToGetData = 'Failed to get data')
       }
 
+      let messages = null
+      let experts = []
+      
+      if(userClient){
+        try {
+          const responseClientMessages = await axios.post(`${API}/auth/get-client-messages-init`, userClient)
+          console.log(responseClientMessages.data)
+          messages = responseClientMessages.data.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1)
+          experts = messages.reduce( (r, a) => {
+            r[a.expertID] = r[a.expertID] || [];
+            r[a.expertID].push(a);
+            return r;
+          }, Object.create(null));
+        } catch (error) {
+          if(error) error.response ? (errorFailedToGetData = error.response.data) : (errorFailedToGetData = 'Failed to get data')
+        }
+      }
+
+      if(experts){
+        experts = Object.keys(experts).map((key) => experts[key])
+      }
+
+      let preloadNotifications = null
+
+      if(experts){
+        preloadNotifications
+        experts.map((item) => {
+          item.filter((e) => { return e.readClient === false; }).length > 0 
+          ? 
+          (preloadNotifications += item.filter((e) => { return e.readClient === false; }).length)
+          : null
+      })}
+
       if(!userClient){
         return {
           ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),
@@ -75,7 +108,9 @@ const withUser = Page => {
         return {
           ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),
           userClient,
-          talents
+          talents,
+          experts,
+          preloadNotifications
         }
       }
     }

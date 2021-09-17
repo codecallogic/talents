@@ -7,12 +7,15 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import {API, SOCKET} from '../config'
 import io from "socket.io-client";
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 const socket = io.connect(SOCKET, {transports: ['websocket', 'polling', 'flashsocket']});
 
-const Talents = ({userClient, talents, talentsFiltered, filterTalents, signup, clientSignUp}) => {
+const Talents = ({userClient, talents, experts, preloadNotifications, talentsFiltered, filterTalents, signup, clientSignUp}) => {
   // console.log(talents)
   // console.log(userClient)
+  // console.log(experts)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
@@ -24,9 +27,54 @@ const Talents = ({userClient, talents, talentsFiltered, filterTalents, signup, c
   const [expertName, setExpertName] = useState('')
   const [expertPhoto, setExpertPhoto] = useState('')
   const [expertEmail, setExpertEmail] = useState('')
+  const [allExperts, setAllExperts] = useState(experts)
+  const [notifications, setNotifications] = useState(preloadNotifications ? preloadNotifications : null)
 
   useEffect(() => {
     if(signupModal == true) signup.password !== signup.confirm_password ? setError(`passwords don't match`) : null
+    if(userClient){
+      socket.on(userClient.id, (messages) => {
+        // console.log(messages)
+        let newMessages = null
+        let newExperts= []
+
+        newMessages = messages.messages.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1)
+
+        newExperts = newMessages.reduce( (r, a) => {
+          r[a.expertID] = r[a.expertID] || [];
+          r[a.expertID].push(a);
+          return r;
+        }, Object.create(null));
+
+        let newArray = []
+
+        for(let key in newExperts){
+          newArray.push(newExperts[key])
+        }
+        // console.log(window.localStorage.getItem('currentChatIdExpert'))
+        // console.log(newArray)
+
+        newArray.forEach((item) => {
+          item.forEach((data) => {
+            if(data.expertID === window.localStorage.getItem('currentChatIdExpert')){
+              return getMessages(item[0].expertID)
+              // setChatMessages(item)
+            }
+          })
+        })
+
+        setAllExperts(newArray)
+        let totalNotifications = null
+        newArray.map((item) => {
+          item.filter((e) => { return e.readClient === false; }).length > 0 
+          ? 
+          (totalNotifications += item.filter((e) => { return e.readClient === false; }).length)
+          : null
+        })
+        setNotifications(totalNotifications)
+        return NotificationManager.info(`New message from ${messages.expertName}`)
+      })
+    }
   }, [signup.confirm_password, signup.password])
   
   const handleFilter = (item) => {
@@ -121,11 +169,16 @@ const Talents = ({userClient, talents, talentsFiltered, filterTalents, signup, c
     //   if(error) return error.response ? setError(error.response.data) : setError('Error submitting form')
     // }
   }
+
+  const openLoginModal = () => {
+    setLoginModal(true)
+  }
   
   return (
     <>
-    <Nav changeStyle='primary-background' userClient={userClient}></Nav>
+    <Nav changeStyle='primary-background' userClient={userClient} notifications={notifications} openLoginModal={openLoginModal}></Nav>
     <div className="talents">
+      <NotificationContainer/>
       <div className="talents-title">Discover Talents</div>
       <div className="talents-menu">
         <div className="talents-menu-container">
