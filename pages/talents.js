@@ -54,15 +54,6 @@ const Talents = ({userClient, talents, experts, preloadNotifications, talentsFil
         // console.log(window.localStorage.getItem('currentChatIdExpert'))
         // console.log(newArray)
 
-        newArray.forEach((item) => {
-          item.forEach((data) => {
-            if(data.expertID === window.localStorage.getItem('currentChatIdExpert')){
-              return getMessages(item[0].expertID)
-              // setChatMessages(item)
-            }
-          })
-        })
-
         setAllExperts(newArray)
         let totalNotifications = null
         newArray.map((item) => {
