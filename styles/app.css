@@ -154,6 +154,87 @@ body {
         border-radius: 1.2rem;
         color: white;
         margin: 0 1rem 1rem 0; }
+      .form-group-single-dropdown-selected-google-item {
+        font-size: 1.4rem;
+        text-transform: capitalize;
+        background-color: #ef1d4b;
+        width: max-content;
+        padding: 1rem 2rem;
+        border-radius: 1.2rem;
+        color: white;
+        margin: 0 1rem 1rem 0;
+        position: relative; }
+        .form-group-single-dropdown-selected-google-item-close {
+          position: absolute;
+          top: -30%;
+          right: -5%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 3rem;
+          height: 3rem;
+          background-color: #194e80;
+          color: white;
+          border-radius: 50%; }
+          .form-group-single-dropdown-selected-google-item-close:hover {
+            cursor: pointer; }
+    .form-group-single-dropdown-autocomplete {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin: -2rem 1rem 0rem 0;
+      border-top-right-radius: 0.5rem;
+      border-top-left-radius: 0.5rem;
+      border: 0.1rem solid #dbdbdb;
+      position: relative; }
+      .form-group-single-dropdown-autocomplete textarea {
+        flex-grow: 1;
+        border-top-right-radius: 0.5rem;
+        border-top-left-radius: 0.5rem;
+        resize: none;
+        padding: 1.2rem 2rem 0 2rem;
+        outline: none;
+        font-size: 1.4rem;
+        font-family: inherit;
+        border: none;
+        position: relative; }
+      .form-group-single-dropdown-autocomplete-container {
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        z-index: 100; }
+        .form-group-single-dropdown-autocomplete-container::-webkit-scrollbar {
+          width: 0.3rem; }
+        .form-group-single-dropdown-autocomplete-container::-webkit-scrollbar-thumb {
+          background-color: #ef1d4b; }
+      .form-group-single-dropdown-autocomplete-suggestion {
+        font-size: 1.4rem;
+        padding: 1rem 1rem;
+        width: 100%;
+        z-index: 100; }
+        .form-group-single-dropdown-autocomplete-suggestion_100 {
+          font-size: 1.4rem;
+          padding: 1rem 1rem;
+          width: 100%;
+          z-index: 100; }
+        .form-group-single-dropdown-autocomplete-suggestion-active {
+          font-size: 1.4rem;
+          padding: 1rem 1rem;
+          color: white;
+          width: 100%; }
+          .form-group-single-dropdown-autocomplete-suggestion-active_100 {
+            font-size: 1.4rem;
+            padding: 1rem 1rem;
+            width: 100%;
+            color: white;
+            z-index: 100; }
+      .form-group-single-dropdown-autocomplete-box {
+        position: absolute;
+        top: 100%;
+        overflow-x: scroll; }
   .form-error-message {
     font-size: 1.4rem;
     margin: 1rem;

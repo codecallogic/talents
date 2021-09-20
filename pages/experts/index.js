@@ -9,12 +9,17 @@ import {API, SOCKET} from '../../config'
 import {useRouter} from 'next/router'
 import axios from 'axios'
 import Messages from '../../components/expert/expertMessages'
+import PlacesAutocomplete from 'react-places-autocomplete'
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import io from "socket.io-client";
 
 const socket = io.connect(SOCKET, {transports: ['websocket', 'polling', 'flashsocket']});
 
+const searchOptionsCities = {
+  componentRestrictions: {country: 'us'},
+  types: ['(cities)']
+}
 
 // TODO: Modify invoice to include client user data model and CRUD, client sign up email verification
 
@@ -27,6 +32,7 @@ const ExpertAccount = ({params, dash, profile, changeView, userExpert, newToken,
   const [loading_talent_image, setLoadingTalentImage] = useState(false)
   const [notifications, setNotifications] = useState(preloadNotifications ? preloadNotifications : null)
   const [allClients, setAllClients] = useState(clients)
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     if(params) params.change ? changeView(params.change) : null
@@ -238,7 +244,7 @@ const ExpertAccount = ({params, dash, profile, changeView, userExpert, newToken,
                 </div>
                 <div className="form-group-single-dropdown">
                   <label htmlFor="location">Location</label>
-                  <div className="form-group-single-dropdown-input">
+                  {/* <div className="form-group-single-dropdown-input">
                     <textarea rows="1" wrap="off" readOnly onKeyDown={(e) => e.keyCode == 13 ? e.preventDefault() : null} name="location" placeholder="(Select Location)" onClick={() => setInputDropdown('location')} required></textarea>
                     <div onClick={() => (input_dropdown !== 'location' ? setInputDropdown('location') : setInputDropdown(''))}><SVGs svg={'dropdown-arrow'}></SVGs></div>
                     { input_dropdown == 'location' &&
@@ -251,15 +257,32 @@ const ExpertAccount = ({params, dash, profile, changeView, userExpert, newToken,
                       })}
                     </div>
                     }
-                  </div>
-                  <div className="form-group-single-dropdown-selected">
-                    {profile.location.length > 0 && profile.location.map((item, idx) => (
-                      <div key={idx} className="form-group-single-dropdown-selected-item">{item}</div>
-                    ))}
-                  </div>
-                  <div className="form-group-single">
-                    {loading_talent_image || loading_profile_image ? null : <button type="submit">Update</button>}
-                  </div>
+                  </div> */}
+                </div>
+                <PlacesAutocomplete value={search} onChange={(e) => setSearch(e)} onSelect={(e) => (createExpertProfile('TALENTS', 'location', e))} searchOptions={searchOptionsCities}>
+                      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                        <div className="form-group-single-dropdown-autocomplete">
+                          <textarea rows="1" wrap="off" onKeyDown={(e) => e.keyCode == 13 ? e.preventDefault() : null} name="location" {...getInputProps({placeholder: "(Select Location)"})}></textarea>
+                          <div className="form-group-single-dropdown-autocomplete-container">
+                          {loading ? <div>...loading</div> : null}
+                          {suggestions.map((suggestion, idx) => {
+                            const className = suggestion.active
+                            ? 'form-group-single-dropdown-autocomplete-suggestion-active'
+                            : 'form-group-single-dropdown-autocomplete-suggestion';
+                            const style = suggestion.active ? {backgroundColor: '#003e5f', cursor: 'pointer'} : {backgroundColor: '#fff', cursor: 'pointer'}
+                            return <div  className="form-group-single-dropdown-autocomplete-box" key={idx} {...getSuggestionItemProps(suggestion, {className, style})}>{suggestion.description}</div> 
+                          })}
+                          </div>
+                        </div>
+                      )}
+                </PlacesAutocomplete>
+                <div className="form-group-single-dropdown-selected">
+                  {profile.location.length > 0 && profile.location.map((item, idx) => (
+                    <div key={idx} className="form-group-single-dropdown-selected-google-item">{item}<span onClick={(e) => (createExpertProfile('TALENTS_REMOVE', 'location', item))} className="form-group-single-dropdown-selected-google-item-close">X</span></div>
+                  ))}
+                </div>
+                <div className="form-group-single">
+                  {loading_talent_image || loading_profile_image ? null : <button type="submit">Update</button>}
                 </div>
             </form>
           </div>
