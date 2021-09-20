@@ -4,8 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-.config
-.next.config.js
+config.js
+next.config.js
 
 # testing
 /coverage

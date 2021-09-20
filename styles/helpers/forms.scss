@@ -211,6 +211,13 @@
       border: 0.1rem solid $color-light-shade-scheme-1;
       position: relative;
 
+      &-talents {
+        margin: 1rem 0 0 3rem;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+      }
+
       textarea {
         flex-grow: 1;
         border-top-right-radius: 0.5rem;

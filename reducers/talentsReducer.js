@@ -7,6 +7,12 @@ const initialState = {
 export const talentsReducer = (state = initialState, action) => {
   switch(action.type){
 
+    case "RESET_TALENTS_LOCATION":
+      return {
+        ...state,
+        location: []
+      }
+
     case "TALENTS":
       return {
         ...state,

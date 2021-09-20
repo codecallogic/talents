@@ -6,9 +6,15 @@ import withTalents from './withTalents'
 import {connect} from 'react-redux'
 import axios from 'axios'
 import {API, SOCKET} from '../config'
+import PlacesAutocomplete from 'react-places-autocomplete'
 import io from "socket.io-client";
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+
+const searchOptionsCities = {
+  componentRestrictions: {country: 'us'},
+  types: ['(cities)']
+}
 
 const socket = io.connect(SOCKET, {transports: ['websocket', 'polling', 'flashsocket']});
 
@@ -16,7 +22,6 @@ const Talents = ({userClient, talents, experts, preloadNotifications, talentsFil
   // console.log(talents)
   // console.log(userClient)
   // console.log(experts)
-  console.log('Testing')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
@@ -30,6 +35,14 @@ const Talents = ({userClient, talents, experts, preloadNotifications, talentsFil
   const [expertEmail, setExpertEmail] = useState('')
   const [allExperts, setAllExperts] = useState(experts)
   const [notifications, setNotifications] = useState(preloadNotifications ? preloadNotifications : null)
+  const [search, setSearch] = useState('')
+
+  useEffect(() => {
+    if(search.length == 0){
+      filterTalents('RESET_TALENTS_LOCATION')
+      setError('')
+    }
+  }, [search])
 
   useEffect(() => {
     if(signupModal == true) signup.password !== signup.confirm_password ? setError(`passwords don't match`) : null
@@ -90,6 +103,7 @@ const Talents = ({userClient, talents, experts, preloadNotifications, talentsFil
 
     if(talentsFiltered.location.length > 0){
       item.location.forEach((slug) => {
+        console.log(slug.split(','))
         dataLocation.push(talentsFiltered.location.some((el) => item.location.includes(el)))
       })
     }
@@ -195,7 +209,7 @@ const Talents = ({userClient, talents, experts, preloadNotifications, talentsFil
             })}
           </div>
         </div>
-        <div className="talents-menu-container">
+        {/* <div className="talents-menu-container">
           <div className="talents-menu-title">Location</div>
           <div className="talents-menu-list">
             {locations && locations.map((item, idx) => {
@@ -205,6 +219,26 @@ const Talents = ({userClient, talents, experts, preloadNotifications, talentsFil
               <div key={idx} className="talents-menu-list-item" onClick={(e) => filterTalents('TALENTS', 'location', item.toLowerCase().trim())}><span>{item}</span></div>
             })}
           </div>
+        </div> */}
+        <div className="talents-menu-container">
+          <div className="talents-menu-title">Location</div>
+          <PlacesAutocomplete value={search} onChange={(e) => setSearch(e)} onSelect={(e) => (filterTalents('TALENTS', 'location', e), setSearch(e))} searchOptions={searchOptionsCities}>
+              {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                <div className="form-group-single-dropdown-autocomplete form-group-single-dropdown-autocomplete-talents">
+                  <textarea rows="1" wrap="off" onKeyDown={(e) => e.keyCode == 13 ? e.preventDefault() : null} name="location" {...getInputProps({placeholder: "(Select Location)"})}></textarea>
+                  <div className="form-group-single-dropdown-autocomplete-container">
+                  {loading ? <div>...loading</div> : null}
+                  {suggestions.map((suggestion, idx) => {
+                    const className = suggestion.active
+                    ? 'form-group-single-dropdown-autocomplete-suggestion-active'
+                    : 'form-group-single-dropdown-autocomplete-suggestion';
+                    const style = suggestion.active ? {backgroundColor: '#003e5f', cursor: 'pointer'} : {backgroundColor: '#fff', cursor: 'pointer'}
+                    return <div  className="form-group-single-dropdown-autocomplete-box" key={idx} {...getSuggestionItemProps(suggestion, {className, style})}>{suggestion.description}</div> 
+                  })}
+                  </div>
+                </div>
+              )}
+          </PlacesAutocomplete>
         </div>
       </div>
       <div className="talents-collection">
