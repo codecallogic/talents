@@ -950,15 +950,17 @@ body {
         .messages-list-item svg:hover {
           cursor: pointer; }
       .messages-list-item-user {
-        padding: 1rem;
-        text-transform: capitalize; }
+        padding: 1rem; }
         .messages-list-item-user-name {
           font-size: 1.8rem; }
         .messages-list-item-user-message {
           font-size: 1.4rem; }
+      .messages-list-item-image {
+        position: relative; }
       .messages-list-item-unread {
         content: '';
         position: absolute;
+        top: -10%;
         right: 10%;
         width: 3rem;
         height: 3rem;
@@ -983,11 +985,15 @@ body {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 25rem;
-      width: 100%;
+      padding: 2rem 5rem;
+      border: 0.05rem solid #ef1d4b;
+      background-color: #ef1d4b;
+      box-shadow: 0.5rem -0.5rem 1rem 0.5rem rgba(0, 0, 0, 0.2);
+      border-radius: 1.8rem;
       font-size: 1.4rem;
       position: relative;
-      height: 75rem;
+      min-height: 100%;
+      max-height: 50rem;
       overflow-y: scroll;
       overflow-x: none; }
       .messages-chatbox-container-box::-webkit-scrollbar {
@@ -1025,11 +1031,12 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%; }
+        width: 100%;
+        margin: 1rem 0; }
       .messages-chatbox-container-input-box {
         display: flex;
         align-items: center;
-        width: 50%;
+        width: 80%;
         padding: 0 1rem;
         border-radius: 1.2rem;
         outline: none;

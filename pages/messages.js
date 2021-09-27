@@ -232,13 +232,12 @@ const Messages = ({userClient, messages, experts, preloadNotifications}) => {
         {allExperts.length > 0 && allExperts.map((item, idx) => (
           // document.getElementById("chatbox").scrollIntoView()
            <div key={`chat-` + idx} className="messages-list-item" onClick={() => (getMessages(item[0].expertID), window.localStorage.setItem('currentChatIdExpert', (item[0].expertID)), typeof window !== 'undefined' ? window.innerWidth < 601 ? document.getElementById("chatbox").scrollIntoView() : null : null)}>
-             <img src={item[0].expertPhoto} alt="" />
+             <div className="messages-list-item-image"><img src={item[0].expertPhoto} alt=""/>{item.filter((e) => { return e.readClient === false; }).length > 0 ? <div className="messages-list-item-unread">{item.filter((e) => { return e.readClient === false; }).length}</div> : null}</div>
              <div className="messages-list-item-user">
               <div className="messages-list-item-user-name">{item[item.length - 1].expertName}</div>
               <div className="messages-list-item-user-message">{item[item.length - 1].message}</div>
               <div className="messages-list-item-user-message-date">{formatDate(item[item.length - 1].createdAt)}</div>
              </div>
-             {item.filter((e) => { return e.readClient === false; }).length > 0 ? <div className="messages-list-item-unread">{item.filter((e) => { return e.readClient === false; }).length}</div> : null}
            </div>
         ))
         }
@@ -262,7 +261,7 @@ const Messages = ({userClient, messages, experts, preloadNotifications}) => {
             <div className="messages-chatbox-container-input-container">
               <div className="messages-chatbox-container-input-box">
               <textarea id="message" className="messages-chatbox-container-input" rows="auto" name="message" placeholder="Type a message" value={message} onChange={(e) => (setMessage(e.target.value), setError(''), setExpertName(chatMessages[0].expertName), setExpertPhoto(chatMessages[0].expertPhoto), setExpertID(chatMessages[0].expertID))}  onFocus={(e) => e.target.placeholder = ''} onBlur={(e) => e.target.placeholder = 'Type a message'} required></textarea>
-              <span className="messages-chatbox-container-input-container-svg" onClick={(e) => sendMessage(e)}>{loading ? <iframe src="https://giphy.com/embed/sSgvbe1m3n93G" width="30" height="30" frameBorder="0" className="giphy-loading-message" allowFullScreen></iframe> : <SVG svg={'send-message'}></SVG>}</span>
+              {message && <span className="messages-chatbox-container-input-container-svg" onClick={(e) => sendMessage(e)}>{loading ? <iframe src="https://giphy.com/embed/sSgvbe1m3n93G" width="30" height="30" frameBorder="0" className="giphy-loading-message" allowFullScreen></iframe> : <SVG svg={'send-message'}></SVG>}</span>}
               </div>
             </div>
           </div>

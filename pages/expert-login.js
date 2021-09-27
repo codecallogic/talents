@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import {connect} from 'react-redux'
 import {API} from '../config'
+import withoutExpert from './withoutExpert'
 import axios from 'axios'
 axios.defaults.withCredentials = true
 
@@ -75,4 +76,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginExpert)
+export default connect(mapStateToProps, mapDispatchToProps)(withoutExpert(LoginExpert))

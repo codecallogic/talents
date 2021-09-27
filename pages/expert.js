@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import {connect} from 'react-redux'
 import {API} from '../config'
 import axios from 'axios'
+import withoutExpert from './withoutExpert'
 
 const SignupExpert = ({signup, setSignup}) => {
 
@@ -92,4 +93,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupExpert)
+export default connect(mapStateToProps, mapDispatchToProps)(withoutExpert(SignupExpert))

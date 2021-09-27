@@ -83,6 +83,7 @@ const Talents = ({userClient, talents, experts, preloadNotifications, talentsFil
   }, [signup.confirm_password, signup.password])
   
   const handleFilter = (item) => {
+    console.log(item)
     let dataActivity = []
 
     if(talentsFiltered.activity.length > 0){
@@ -103,12 +104,14 @@ const Talents = ({userClient, talents, experts, preloadNotifications, talentsFil
 
     if(talentsFiltered.location.length > 0){
       item.location.forEach((slug) => {
-        console.log(slug.split(','))
         dataLocation.push(talentsFiltered.location.some((el) => item.location.includes(el)))
       })
     }
 
-
+    if(talentsFiltered.activity.length > dataActivity.length) return
+    if(talentsFiltered.specialty.length > dataSpecialty.length) return
+    if(talentsFiltered.location.length > dataLocation.length) return
+    
     if(!dataActivity.includes(false) && !dataSpecialty.includes(false) && !dataLocation.includes(false)) return item
   }
 
