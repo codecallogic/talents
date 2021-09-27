@@ -30,9 +30,9 @@ const LoginExpert = ({signup, setSignup}) => {
   
   return (
     <div className="signupHost">
-      <a href="/" className="signupHost-logo">Talent</a>
       <div className="signupHost-container">
         <div className="signupHost-leftColumn">
+          <a href="/" className="signupHost-leftColumn-logo">Talent</a>
           <div className="signupHost-leftColumn-title">
           Experts have the talent that makes, Talent
           </div>
