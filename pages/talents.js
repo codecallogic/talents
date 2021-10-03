@@ -330,7 +330,7 @@ const Talents = ({userClient, talents, experts, preloadNotifications, talentsFil
       {loginModal && <div className="login-modal">
         <div className="login-modal-box">
           <div className="login-modal-box-header">
-            <span>Sign up</span>
+            <span>Login</span>
             <div onClick={() => (setLoginModal(false), clientSignUp('RESET'), setError(''), setMessage(''))}><SVGs svg={'close'}></SVGs></div>
           </div>
           <form className="login-modal-form" onSubmit={(e) => loginClient(e)}>

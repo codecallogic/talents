@@ -208,13 +208,15 @@ const Messages = ({userExpert, clients, updateNotifications}) => {
           // console.log(item)
           // document.getElementById("chatbox").scrollIntoView()
           <div key={`chat-` + idx} className="messages-list-item" onClick={() => (getMessages(item[0].clientID), window.localStorage.setItem('currentChatId', (item[0].clientID)))}>
-            <SVG svg={'account-circle'}></SVG>
+            <div className="messages-list-item-image">
+              <SVG svg={'account-circle'}></SVG>
+              {item.filter((e) => { return e.readExpert === false; }).length > 0 ? <div className="messages-list-item-unread">{item.filter((e) => { return e.readExpert === false; }).length}</div> : null}
+            </div>
             <div className="messages-list-item-user">
             <div className="messages-list-item-user-name">{item[item.length - 1].clientName}</div>
             <div className="messages-list-item-user-message">{item[item.length - 1].message}</div>
             <div className="messages-list-item-user-message-date">{formatDate(item[item.length - 1].createdAt)}</div>
             </div>
-            {item.filter((e) => { return e.readExpert === false; }).length > 0 ? <div className="messages-list-item-unread">{item.filter((e) => { return e.readExpert === false; }).length}</div> : null}
           </div>
         ))
         }

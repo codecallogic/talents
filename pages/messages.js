@@ -232,12 +232,14 @@ const Messages = ({userClient, messages, experts, preloadNotifications}) => {
         {allExperts.length > 0 && allExperts.map((item, idx) => (
           // document.getElementById("chatbox").scrollIntoView()
            <div key={`chat-` + idx} className="messages-list-item" onClick={() => (getMessages(item[0].expertID), window.localStorage.setItem('currentChatIdExpert', (item[0].expertID)), typeof window !== 'undefined' ? window.innerWidth < 601 ? document.getElementById("chatbox").scrollIntoView() : null : null)}>
-             <div className="messages-list-item-image"><img src={item[0].expertPhoto} alt=""/>{item.filter((e) => { return e.readClient === false; }).length > 0 ? <div className="messages-list-item-unread">{item.filter((e) => { return e.readClient === false; }).length}</div> : null}</div>
-             <div className="messages-list-item-user">
+            <div className="messages-list-item-image">
+               <img src={item[0].expertPhoto} alt=""/>{item.filter((e) => { return e.readClient === false; }).length > 0 ? <div className="messages-list-item-unread">{item.filter((e) => { return e.readClient === false; }).length}</div> : null}
+            </div>
+            <div className="messages-list-item-user">
               <div className="messages-list-item-user-name">{item[item.length - 1].expertName}</div>
               <div className="messages-list-item-user-message">{item[item.length - 1].message}</div>
               <div className="messages-list-item-user-message-date">{formatDate(item[item.length - 1].createdAt)}</div>
-             </div>
+            </div>
            </div>
         ))
         }

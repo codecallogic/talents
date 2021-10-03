@@ -7,7 +7,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 const socket = io.connect(SOCKET, {transports: ['websocket', 'polling', 'flashsocket']});
 
-const Header = ({userExpert, clients, preloadNotifications}) => {
+const Header = ({userExpert, clients, preloadNotifications, openLoginModal}) => {
 
   const [notifications, setNotifications] = useState(preloadNotifications ? preloadNotifications : null)
 
@@ -44,7 +44,7 @@ const Header = ({userExpert, clients, preloadNotifications}) => {
   
   return (
     <div className="header">
-      <Nav userExpert={userExpert} notifications={notifications}></Nav>
+      <Nav userExpert={userExpert} notifications={notifications} openLoginModal={openLoginModal}></Nav>
       <div className="header-container">
         <NotificationContainer/>
         <div className="header-container-title">Connect with talent from the beverage world</div>

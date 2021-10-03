@@ -65,7 +65,9 @@
       svg {
         width: 5rem;
         height: 5rem;
+        margin-right: 1rem;
         fill: $color-light-gray-alt-3;
+        position: relative;
 
         &:hover {
           cursor: pointer;

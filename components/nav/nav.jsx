@@ -47,7 +47,7 @@ const Nav = ({userExpert, userClient, changeStyle, notifications, openLoginModal
           <input className="nav-menu-dropdown-input" type="checkbox" name="nav-dropdown" id="nav-dropdown" />
           <div className={`nav-menu-dropdown-container ` + (changeStyle ? ` ${changeStyle}` : null)}>
             {userExpert ? null : userClient ? <div className="nav-menu-dropdown-container-item" onClick={() => logoutClient()}>Logout</div> : <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = '/expert-login'}>Expert Login</div>}
-            {!userClient ? <div className="nav-menu-dropdown-container-item" onClick={() => (openLoginModal(), document.getElementById('nav-dropdown').checked = false)}>User Login</div> : null}
+            {!userExpert ? !userClient ? <div className="nav-menu-dropdown-container-item" onClick={() => (openLoginModal(), document.getElementById('nav-dropdown').checked = false)}>User Login</div> : null : null}
             {userExpert ? <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = '/experts'}>Account</div> : null }
             {userExpert ? <div className="nav-menu-dropdown-container-item" onClick={() => logoutExpert()}>Logout</div> : null }
             <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = "/talents"}>Talents</div>
