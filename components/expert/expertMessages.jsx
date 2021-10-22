@@ -199,6 +199,13 @@ const Messages = ({userExpert, clients, updateNotifications}) => {
       if(error) error.response ? (setError(error.response.data)) : (setError('Failed to get data'))
     }
   }
+
+  useEffect(() => {
+    let messages = document.querySelectorAll('.messages-chatbox-container-box')
+    if(messages){
+      messages[0] ? messages[0].childNodes[messages[0].childNodes.length- 1].scrollIntoView() : null
+    }
+  }, [chatMessages])
   
   return (
     <div className="messages">
@@ -227,7 +234,7 @@ const Messages = ({userExpert, clients, updateNotifications}) => {
           <div className="messages-chatbox-container">
             <div className="messages-chatbox-container-box">
             {chatMessages.map((item, idx) => (
-              <div key={idx} className="messages-chatbox-container-item">
+              <div id={`messages-${idx}`} key={idx} className="messages-chatbox-container-item">
                 {item.sender == 'expert' ? <img src={userExpert.photo[0].location}></img> : <SVG svg={'account-circle'}></SVG>}
                 <div className="messages-chatbox-container-item-user">
                   <div className="messages-chatbox-container-item-user-name">{item.name}</div>

@@ -1000,7 +1000,7 @@ body {
         width: 0.2rem;
         height: 0; }
       .messages-chatbox-container-box::-webkit-scrollbar-thumb {
-        background-color: #ef1d4b; }
+        background-color: #194e80; }
       @media only screen and (max-width: 1200px) {
         .messages-chatbox-container-box {
           padding: 0 10rem; } }

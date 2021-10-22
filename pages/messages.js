@@ -222,6 +222,14 @@ const Messages = ({userClient, messages, experts, preloadNotifications}) => {
     }
   }
 
+  useEffect(() => {
+    let messages = document.querySelectorAll('.messages-chatbox-container-box')
+    if(messages){
+      messages[0] ? messages[0].childNodes[messages[0].childNodes.length- 1].scrollIntoView() : null
+    }
+    // console.log(messages[0].childNodes[messages[0].childNodes.length- 1])
+  }, [chatMessages])
+
   return (
     <>
     <Nav changeStyle='primary-background' userClient={userClient} notifications={notifications}></Nav>
@@ -250,8 +258,8 @@ const Messages = ({userClient, messages, experts, preloadNotifications}) => {
           <div className="messages-chatbox-container">
             <div className="messages-chatbox-container-box">
             {chatMessages.map((item, idx) => (
-              <div key={idx} className="messages-chatbox-container-item">
-                {item.sender == 'expert' ? <img src={item.expertPhoto}></img> : <SVG svg={'account-circle'}></SVG>}
+              <div id={`message-${idx}`} key={`message-${idx}`} className="messages-chatbox-container-item">
+                {item.sender == 'expert' ? <img src={item.expertPhoto}></img> : <img src={userClient.photo[0].location}></img>}
                 <div className="messages-chatbox-container-item-user">
                   <div className="messages-chatbox-container-item-user-name">{item.name}</div>
                   <div className="messages-chatbox-container-item-user-message">{item.message}</div>
