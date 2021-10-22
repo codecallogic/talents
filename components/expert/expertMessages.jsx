@@ -7,8 +7,8 @@ import io from "socket.io-client";
 const socket = io.connect(SOCKET, {transports: ['websocket', 'polling', 'flashsocket']});
 
 const Messages = ({userExpert, clients, updateNotifications}) => {
-  // console.log(userExpert)
-  // console.log(clients)
+  console.log(userExpert)
+  console.log(clients)
 
   const [chatMessages, setChatMessages] = useState([])
   const [message, setMessage] = useState('')
@@ -201,7 +201,6 @@ const Messages = ({userExpert, clients, updateNotifications}) => {
   }
 
   useEffect(() => {
-    console.log(chatMessages)
     let messages = document.querySelectorAll('.messages-chatbox-container-box')
     if(messages){
       messages[0] ? messages[0].childNodes[messages[0].childNodes.length- 1].scrollIntoView() : null
@@ -217,7 +216,7 @@ const Messages = ({userExpert, clients, updateNotifications}) => {
           // document.getElementById("chatbox").scrollIntoView()
           <div key={`chat-` + idx} className="messages-list-item" onClick={() => (getMessages(item[0].clientID), window.localStorage.setItem('currentChatId', (item[0].clientID)))}>
             <div className="messages-list-item-image">
-              <SVG svg={'account-circle'}></SVG>
+              {item[item.length - 1].clientPhoto ? <img src={item[item.length - 1].clientPhoto}></img> : <SVG svg={'account-circle'}></SVG>}
               {item.filter((e) => { return e.readExpert === false; }).length > 0 ? <div className="messages-list-item-unread">{item.filter((e) => { return e.readExpert === false; }).length}</div> : null}
             </div>
             <div className="messages-list-item-user">
