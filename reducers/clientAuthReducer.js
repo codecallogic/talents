@@ -3,12 +3,19 @@ const initialState = {
   email: '',
   password: '',
   confirm_password: '',
+  photo: '',
 }
 
 export const clientAuthReducer = (state = initialState, action) => {
   switch(action.type){
 
     case "SIGNUP_CLIENT":
+      return {
+        ...state,
+        [action.name]: action.value
+      }
+
+    case "UPDATE_CLIENT":
       return {
         ...state,
         [action.name]: action.value

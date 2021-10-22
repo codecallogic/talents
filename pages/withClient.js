@@ -100,10 +100,10 @@ const withUser = Page => {
       })}
 
       if(!userClient){
-        return {
-          ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),
-          talents
-        }
+        context.res.writeHead(307, {
+          Location: '/talents'
+        });
+        context.res.end();
       }else{
         return {
           ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),

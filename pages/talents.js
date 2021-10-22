@@ -147,7 +147,7 @@ const Talents = ({userClient, talents, experts, preloadNotifications, talentsFil
       clientSignUp('RESET')
       setError('')
       setMessage(responseSignup.data)
-      window.location.reload()
+      window.location.href = '/account'
     } catch (error) {
       setLoading(false)
       setError('')
