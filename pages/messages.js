@@ -28,6 +28,7 @@ const Messages = ({userClient, messages, experts, preloadNotifications}) => {
   const [notifications, setNotifications] = useState(preloadNotifications ? preloadNotifications : null)
 
   useEffect(() => {
+    console.log(userClient)
     window.localStorage.removeItem('currentChatIdExpert')
     // if(allExperts[0]) setChatMessages(allExperts[0])
     // if(document.querySelectorAll('.messages-list-item')[0]) document.querySelectorAll('.messages-list-item')[0].classList.add('messages-list-item-selected')
@@ -102,7 +103,7 @@ const Messages = ({userClient, messages, experts, preloadNotifications}) => {
   const sendMessage = async (e) => {
     e.preventDefault()
     setLoading(true)
-    socket.emit('client-message-expert', {name: userClient.username, message: message, clientName: userClient.username, expertName: expertName, expertPhoto: expertPhoto, expertID: expertID, expertEmail: expertEmail, clientID: userClient.id, sender: 'client', readClient: true}, (messages) => {
+    socket.emit('client-message-expert', {name: userClient.username, message: message, clientName: userClient.username, clientPhoto: userClient.photo ? userClient.photo[0].location : '', expertName: expertName, expertPhoto: expertPhoto, expertID: expertID, expertEmail: expertEmail, clientID: userClient.id, sender: 'client', readClient: true}, (messages) => {
       setMessage('')
       setLoading(false)
       if(messages){
@@ -258,7 +259,7 @@ const Messages = ({userClient, messages, experts, preloadNotifications}) => {
             <div className="messages-chatbox-container-box">
             {chatMessages.map((item, idx) => (
               <div id={`message-${idx}`} key={`message-${idx}`} className="messages-chatbox-container-item">
-                {item.sender == 'expert' ? <img src={item.expertPhoto}></img> : <img src={userClient.photo[0].location}></img>}
+                {item.sender == 'expert' ? <img src={item.expertPhoto}></img> : userClient.photo ? <img src={userClient.photo[0].location}></img> : <SVG svg={'account-circle'}></SVG>}
                 <div className="messages-chatbox-container-item-user">
                   <div className="messages-chatbox-container-item-user-name">{item.name}</div>
                   <div className="messages-chatbox-container-item-user-message">{item.message}</div>
