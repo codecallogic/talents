@@ -227,7 +227,6 @@ const Messages = ({userClient, messages, experts, preloadNotifications}) => {
     if(messages){
       messages[0] ? messages[0].childNodes[messages[0].childNodes.length- 1].scrollIntoView() : null
     }
-    // console.log(messages[0].childNodes[messages[0].childNodes.length- 1])
   }, [chatMessages])
 
   return (
