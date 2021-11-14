@@ -76,17 +76,17 @@ const Home = ({userExpert, clients, notifications, signup, clientSignUp}) => {
           <div className="home-card-item">
             <img src="https://patch.com/img/cdn20/users/22872998/20200205/113840/styles/patch_image/public/bartender___05233528487.png" alt="" />
             <div className="home-card-item-title">Hire the best talent for your events</div>
-            <div className="home-card-item-description">Take your events to the next level! Birthdays, large receptions, team building, tastings, name it we have the one for you</div>
+            <div className="home-card-item-description">Take your events to the next level! Birthdays, large receptions, team building, tastings, name it, a talent is here for you.</div>
           </div>
           <div className="home-card-item">
             <img src="https://www.insurancejournal.com/app/uploads/2021/03/waiter-scaled.jpg" alt="" />
-            <div className="home-card-item-title">Profits to the moon</div>
-            <div className="home-card-item-description">Beverage is crucial for a succesful business, get support from a professional for your beverage program, staff training etc..</div>
+            <div className="home-card-item-title">Increase you profits</div>
+            <div className="home-card-item-description">Beverage is crucial for a successful business, get support from a professional for your beverage program, staff training and special events.</div>
           </div>
           <div className="home-card-item">
             <img src="https://beyondcurated.com/wp-content/uploads/2019/07/The-Art-Of-The-Sommelier.jpg" alt="" />
             <div className="home-card-item-title">Private wine cellar and Bar consulting</div>
-            <div className="home-card-item-description">Get advise from the best sommelier and mixologiest to build your Winne cellar and you bar for investments or just joyce</div>
+            <div className="home-card-item-description">Get advice from the best sommelier and mixologist to build your high-end cellar and Bar for investments and pleasure.</div>
           </div>
         </div>
       </div>

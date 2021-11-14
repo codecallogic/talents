@@ -31,9 +31,9 @@ const Nav = ({userExpert, userClient, changeStyle, notifications, openLoginModal
   
   return (
     <div className={`nav ` + (navSticky ? ` nav-sticky` : null) + (changeStyle ? ` ${changeStyle}` : null)}>
-      <div className="nav-logo" onClick={() => window.location.href = '/'}>Talent</div>
+      <div className="nav-logo" onClick={() => window.location.href = '/'}>ProjectBev</div>
       <div className="nav-menu">
-        <a href="/expert" className="nav-menu-item nav-menu-item-host">{userExpert ? null : 'Become a host'}</a>
+        <a href="/expert" className="nav-menu-item nav-menu-item-host">{userExpert ? null : 'Become a talent'}</a>
         {userClient && <a className="nav-menu-item" onClick={() => window.location.href = '/messages'}>
           <SVG svg={'inbox'}></SVG>
           {notifications ? <span className="nav-menu-item-notifcations">{notifications}</span> : null}
@@ -52,7 +52,7 @@ const Nav = ({userExpert, userClient, changeStyle, notifications, openLoginModal
             {userExpert ? <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = '/experts'}>Account</div> : null }
             {userExpert ? <div className="nav-menu-dropdown-container-item" onClick={() => logoutExpert()}>Logout</div> : null }
             <div className="nav-menu-dropdown-container-item" onClick={() => window.location.href = "/talents"}>Talents</div>
-            {userExpert ? null : <div className="nav-menu-dropdown-container-item nav-menu-dropdown-container-item-host" onClick={() => window.location.href = "/expert"}>Become a host</div>}
+            {userExpert ? null : <div className="nav-menu-dropdown-container-item nav-menu-dropdown-container-item-host" onClick={() => window.location.href = "/expert"}>Become a talent</div>}
           </div>
         </div>
       </div>

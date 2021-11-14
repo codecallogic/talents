@@ -37,13 +37,13 @@ const SignupExpert = ({signup, setSignup}) => {
     <div className="signupHost">
       <div className="signupHost-container">
         <div className="signupHost-leftColumn">
-          <a href="/" className="signupHost-leftColumn-logo">Talent</a>
+          <a href="/" className="signupHost-leftColumn-logo">ProjectBev</a>
           <div className="signupHost-leftColumn-title">
-          Experts have the talent that makes, Talent
-          </div>
+          Talents elevate any experiences.
+          </div>  
         </div>
         <div className="signupHost-rightColumn">
-          <div className="signupHost-rightColumn-title">Become an expert</div>
+          <div className="signupHost-rightColumn-title">Become an talent</div>
           <form className="form" onSubmit={handleSignup}>
             <div className="form-group-single">
               <label htmlFor="Username" >Username</label>
