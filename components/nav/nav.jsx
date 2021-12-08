@@ -31,7 +31,7 @@ const Nav = ({userExpert, userClient, changeStyle, notifications, openLoginModal
   
   return (
     <div className={`nav ` + (navSticky ? ` nav-sticky` : null) + (changeStyle ? ` ${changeStyle}` : null)}>
-      <div className="nav-logo" onClick={() => window.location.href = '/'}>ProjectBev</div>
+      <div className="nav-logo" onClick={() => window.location.href = '/'}>FindBacchus</div>
       <div className="nav-menu">
         <a href="/expert" className="nav-menu-item nav-menu-item-host">{userExpert ? null : 'Become a talent'}</a>
         {userClient && <a className="nav-menu-item" onClick={() => window.location.href = '/messages'}>

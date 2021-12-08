@@ -37,9 +37,9 @@ const SignupExpert = ({signup, setSignup}) => {
     <div className="signupHost">
       <div className="signupHost-container">
         <div className="signupHost-leftColumn">
-          <a href="/" className="signupHost-leftColumn-logo">ProjectBev</a>
+          <a href="/" className="signupHost-leftColumn-logo">FindBacchus</a>
           <div className="signupHost-leftColumn-title">
-          Talents elevate any experiences.
+          Talents create and elevate any experiences.
           </div>  
         </div>
         <div className="signupHost-rightColumn">
