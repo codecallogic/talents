@@ -228,7 +228,7 @@ const Talents = ({userClient, talents, experts, preloadNotifications, talentsFil
           <PlacesAutocomplete value={search} onChange={(e) => setSearch(e)} onSelect={(e) => (filterTalents('TALENTS', 'location', e), setSearch(e))} searchOptions={searchOptionsCities}>
               {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                 <div className="form-group-single-dropdown-autocomplete form-group-single-dropdown-autocomplete-talents">
-                  <textarea rows="1" wrap="off" onKeyDown={(e) => e.keyCode == 13 ? e.preventDefault() : null} name="location" {...getInputProps({placeholder: "(Select Location)"})}></textarea>
+                  <textarea rows="1" wrap="off" onKeyDown={(e) => e.keyCode == 13 ? e.preventDefault() : null} name="location" {...getInputProps({placeholder: "(Select City)"})}></textarea>
                   <div className="form-group-single-dropdown-autocomplete-container">
                   {loading ? <div>...loading</div> : null}
                   {suggestions.map((suggestion, idx) => {

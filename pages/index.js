@@ -52,7 +52,7 @@ const Home = ({userExpert, clients, notifications, signup, clientSignUp}) => {
       clientSignUp('RESET')
       setError('')
       setMessage(responseSignup.data)
-      window.location.href = 'talents'
+      window.location.href = 'account'
     } catch (error) {
       setLoading(false)
       setError('')

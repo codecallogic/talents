@@ -68,7 +68,7 @@ body {
         flex-grow: 1;
         border-radius: 1.2rem;
         resize: none;
-        padding: 1.5rem 2rem 0rem 1rem;
+        padding: 1.5rem 2rem 0rem 1.5rem;
         outline: none;
         font-size: 1.4rem;
         font-family: inherit;
@@ -193,7 +193,7 @@ body {
         border-right: none;
         border-left: none; }
       .form-group-single-dropdown-autocomplete textarea {
-        flex-grow: 1;
+        width: 100%;
         border-top-right-radius: 0.5rem;
         border-top-left-radius: 0.5rem;
         resize: none;
@@ -500,7 +500,8 @@ body {
     padding: 1rem 2rem;
     box-sizing: content-box;
     background-color: #dfdfdf;
-    width: 40rem;
+    width: 80%;
+    max-width: 50rem;
     height: 65rem;
     border-bottom-left-radius: 1.2rem; }
     .login-modal-box-header {
@@ -649,6 +650,9 @@ body {
     width: 100rem;
     margin: 5rem 0;
     padding: 5rem; }
+    @media only screen and (max-width: 992px) {
+      .experts-container {
+        width: 100%; } }
   .experts-title {
     font-size: 3.2rem;
     font-weight: 700; }
@@ -728,6 +732,10 @@ body {
     .experts-profile-right {
       width: 100%;
       padding: 0rem 0 0 5rem; }
+      @media only screen and (max-width: 992px) {
+        .experts-profile-right {
+          width: 100%;
+          padding: 0; } }
       .experts-profile-right-image {
         display: flex;
         align-items: center; }

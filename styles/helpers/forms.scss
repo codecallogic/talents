@@ -51,7 +51,7 @@
         flex-grow: 1;
         border-radius: 1.2rem;
         resize: none;
-        padding: 1.5rem 2rem 0rem 1rem;
+        padding: 1.5rem 2rem 0rem 1.5rem;
         outline: none;
         font-size: 1.4rem;
         font-family: inherit;
@@ -219,7 +219,8 @@
       }
 
       textarea {
-        flex-grow: 1;
+        // flex-grow: 1;
+        width: 100%;
         border-top-right-radius: 0.5rem;
         border-top-left-radius: 0.5rem;
         resize: none;

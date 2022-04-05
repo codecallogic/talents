@@ -134,7 +134,7 @@ const ExpertAccount = ({params, dash, profile, changeView, userExpert, newToken,
         }
       })
       // console.log(responseProfile.data)
-      window.location.href = `/experts?view=profile`
+      window.location.href = `/talents`
     } catch (error) {
       console.log('Error', error.response)
       // if(error) window.location.href = `/experts?view=profile`

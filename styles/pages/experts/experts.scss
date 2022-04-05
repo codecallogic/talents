@@ -6,6 +6,10 @@
     width: 100rem;
     margin: 5rem 0;
     padding: 5rem;
+
+    @media only screen and (max-width: $large) {
+      width: 100%;
+    }
   }
 
   &-title {
@@ -129,6 +133,11 @@
     &-right {
       width: 100%;
       padding: 0rem 0 0 5rem;
+
+      @media only screen and (max-width: $large) {
+        width: 100%;
+        padding: 0;
+      }
 
       &-image {
         display: flex;
