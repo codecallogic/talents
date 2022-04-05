@@ -34,7 +34,7 @@ const LoginExpert = ({signup, setSignup}) => {
         <div className="signupHost-leftColumn">
           <a href="/" className="signupHost-leftColumn-logo">Talent</a>
           <div className="signupHost-leftColumn-title">
-          Experts have the talent that you need
+          Experts have the knowledge and talent to connect us
           </div>
         </div>
         <div className="signupHost-rightColumn">

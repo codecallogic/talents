@@ -47,7 +47,7 @@ const Header = ({userExpert, clients, preloadNotifications, openLoginModal}) => 
       <Nav userExpert={userExpert} notifications={notifications} openLoginModal={openLoginModal}></Nav>
       <div className="header-container">
         <NotificationContainer/>
-        <div className="header-container-title">Connect with talent from the beverage world</div>
+        <div className="header-container-title">Connect with talents from the beverage world</div>
         <div className="header-container-button" onClick={() => window.location.href = '/talents'}>Discover talents</div>
       </div>
     </div>
