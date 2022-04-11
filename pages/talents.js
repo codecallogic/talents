@@ -16,7 +16,7 @@ const searchOptionsCities = {
   types: ['(cities)']
 }
 
-const socket = io.connect(SOCKET, {transports: ['websocket', 'polling', 'flashsocket']});
+const socket = io.connect(SOCKET, {transports: ['websocket', 'polling', 'flashsocket'], rejectUnauthorized: false});
 
 const Talents = ({userClient, talents, experts, preloadNotifications, talentsFiltered, filterTalents, signup, clientSignUp}) => {
   // console.log(talents)
