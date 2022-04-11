@@ -83,7 +83,7 @@ const Talents = ({userClient, talents, experts, preloadNotifications, talentsFil
   }, [signup.confirm_password, signup.password])
   
   const handleFilter = (item) => {
-    console.log(item)
+    // console.log(item)
     let dataActivity = []
 
     if(talentsFiltered.activity.length > 0){

@@ -28,7 +28,7 @@ const Messages = ({userClient, messages, experts, preloadNotifications}) => {
   const [notifications, setNotifications] = useState(preloadNotifications ? preloadNotifications : null)
 
   useEffect(() => {
-    console.log(userClient)
+    // console.log(userClient)
     window.localStorage.removeItem('currentChatIdExpert')
     // if(allExperts[0]) setChatMessages(allExperts[0])
     // if(document.querySelectorAll('.messages-list-item')[0]) document.querySelectorAll('.messages-list-item')[0].classList.add('messages-list-item-selected')
