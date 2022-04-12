@@ -8,7 +8,7 @@ import io from "socket.io-client";
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
-const socket = io.connect(`${window.origin}:3001`, {transports: ['websocket', 'polling', 'flashsocket'], rejectUnauthorized: false});
+const socket = io.connect(SOCKET, {transports: ['websocket', 'polling', 'flashsocket']});
 
 
 const Messages = ({userClient, messages, experts, preloadNotifications}) => {
