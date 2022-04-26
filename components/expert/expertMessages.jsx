@@ -7,8 +7,8 @@ import io from "socket.io-client";
 const socket = io.connect(SOCKET, {transports: ['websocket', 'polling', 'flashsocket']});
 
 const Messages = ({userExpert, clients, updateNotifications}) => {
-  console.log(userExpert)
-  console.log(clients)
+  // console.log(userExpert)
+  // console.log(clients)
 
   const [chatMessages, setChatMessages] = useState([])
   const [message, setMessage] = useState('')
